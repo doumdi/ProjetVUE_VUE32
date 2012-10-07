@@ -6,19 +6,16 @@
  * by Maxime Bedard - 24/09/2012
  * ****************************************************************************/
 
-#include "Board.h"
+#include "../src/Board.h"
 #include "HardwareProfile.h"
-#include "vue32_adc.h"
-#include "NETV32_Common.h"
-#include "VUE32_Impl.h"
-#include "VUE32_Utils.h"
-
-// Persistent data
-#pragma romdata reserved_section=0x1D07FFF0
-const int persistentData = 0x00000000;
-#pragma romdata
+#include "../src/NETV32_Common.h"
+#include "../src/VUE32_Impl.h"
+#include "../src/VUE32_Utils.h"
+#include <plib.h>
 
 #define FIRMWARE_VERSION 0x0001
+
+unsigned int m_unBoardId;
 
 /*
  * Initialize the board
@@ -43,65 +40,33 @@ void InitBoard(void)
     // Initialize Timers
     InitTimers();
 
-    // Initialize ADC
-    InitADC();
-
-    // Initialize CAN buses
+    // Initialize CAN bus
     CRX1_TRIS = 1;
     CTX1_TRIS = 0;
-    CRX2_TRIS = 1;
-    CTX2_TRIS = 0;
     netv_init_can_driver(GetBoardID(),CAN1);
-    netv_init_can_driver(GetBoardID(),CAN2);
-
-    //UART
-    TRIS_U3ARX = 1;
-    TRIS_U3ATX = 0;
-    
-    // Initialize I2C
-    InitI2C();
     
     // Initialize digital IOs as inputs
     DIO_TRIS |= DIO_MASK;
     
-    // Initialize Power Outputs (low)
-    PWR1 = 0;
-    PWR2 = 0;
-    PWR3 = 0;
-    PWR4 = 0;
-    PWR1_TRIS = 1;
-    PWR2_TRIS = 1;
-    PWR3_TRIS = 1;
-    PWR4_TRIS = 1;
-
-    // Initialize Speed sensor
-    TRIS_SPDO1 = 1;
-    TRIS_SPDO2 = 1;
-
-    //Motor #1
-    IN1_M1 = 0;
-    IN1_M1_TRIS = 0;
-    IN2_M1 = 0;
-    IN2_M1_TRIS = 0;
-
-    //Motor #2
-    IN1_M2 = 0;
-    IN1_M2_TRIS = 0;
-    IN2_M2 = 0;
-    IN2_M2_TRIS = 0;
-
-    //Unused - all inputs
-    TRISBbits.TRISB5 = 1;
-    TRISBbits.TRISB15 = 1;
-    TRISDbits.TRISD8 = 1;
-    TRISDbits.TRISD11 = 1;
-    TRISGbits.TRISG6 = 1;
-    TRISGbits.TRISG7 = 1;
-    TRISGbits.TRISG8 = 1;
-    TRISGbits.TRISG9 = 1;
+    // Initialize Relays (low)
+    RELAY1_TRIS = 0;
+    RELAY2_TRIS = 0;
+    RELAY1 = 0;
+    RELAY2 = 0;
     
-    // TODO: Speed sensors, UART and motors inits are missing
-    asm volatile ("ei"); //Enables the core to handle any pending interrupt requests
+    // Initialize SPI pins as inputs
+    SPICLK_TRIS = 1;
+    SPISDO_TRIS	= 1;
+    SPICS_TRIS = 1;
+    SPISDI_TRIS	= 1;
+    
+    //TODO: Inti unused pins as inputs
+    
+    // Read the board ID
+    m_unBoardId = DIO_PORT & DIO_MASK;
+    
+    //Enables the core to handle any pending interrupt requests
+    asm volatile ("ei"); 
 }
 
 /*
@@ -110,7 +75,7 @@ void InitBoard(void)
  */
 VUE32_ID GetBoardID(void)
 {
-    return (persistentData & 0x000000FF);
+    return (m_unBoardId & 0x000000FF);
 }
 
 /*
@@ -134,7 +99,8 @@ unsigned char GetMyAddr()
  */
 void InitVUE32(VUE32_ID id)
 {
-    gInitFunc[id]();
+    // This board is not a "true" VUE32 board, there is no specific initialization
+    //gInitFunc[id]();
 }
 
 /*
@@ -143,6 +109,8 @@ void InitVUE32(VUE32_ID id)
 void CallVUE32Impl(VUE32_ID id)
 {
     RunLongPolling();
-    gImplFunc[id]();
+
+    // Main loop of the BMS
+    ImplBMS();
 }
 

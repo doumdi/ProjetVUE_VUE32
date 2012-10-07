@@ -74,12 +74,18 @@
 /*********************************************************************/
 
 // Diagnostic LEDs (1 = Off (PNP driver))
-#define LED1			LATBbits.LATB12	
-#define LED1_TRIS		TRISBbits.TRISB12
-#define LED2			LATBbits.LATB13	
-#define LED2_TRIS		TRISBbits.TRISB13
+#define LED1			LATBbits.LATB8
+#define LED1_TRIS		TRISBbits.TRISB8
+#define LED2			LATBbits.LATB9
+#define LED2_TRIS		TRISBbits.TRISB9
 
-// Digital Inputs or Outputs
+// Relays (digital outputs)
+#define RELAY1                  LATDbits.LATD2
+#define RELAY1_TRIS             TRISDbits.TRISD2
+#define RELAY2                  LATDbits.LATD1
+#define RELAY2_TRIS             TRISDbits.TRISD1
+
+// Digital Inputs (for the BMS Address)
 #define DIO_TRIS		TRISE
 #define DIO_LAT			LATE
 #define DIO_PORT		PORTE
@@ -103,69 +109,15 @@
 #define DIO6_TRIS               TRISEbits.TRISE6
 #define DIO7_TRIS               TRISEbits.TRISE7
 
-//Analog inputs
-#define TRIS_AN0		TRISBbits.TRISB0	//AN0
-#define TRIS_AN1		TRISBbits.TRISB1	//AN1
-#define TRIS_AN2		TRISBbits.TRISB2	//AN2
-#define TRIS_AN3		TRISBbits.TRISB3	//AN3
-#define TRIS_MCS1		TRISBbits.TRISB4	//AN4
-#define TRIS_MCS2		TRISBbits.TRISB9	//AN9
-#define TRIS_TEMP		TRISBbits.TRISB10	//AN10
-#define TRIS_VOLT		TRISBbits.TRISB11	//AN11
-
-// I2C TRIS bits 
-#define I2C_SDA                 TRISDbits.TRISD9
-#define I2C_SCL                 TRISDbits.TRISD10
-
-//Speed sensor
-#define SPDO1			PORTCbits.RC13		//CN1
-#define SPDO2			PORTCbits.RC14		//CN0
-#define SPDO1_TRIS		TRISCbits.TRISC13	
-#define SPDO2_TRIS		TRISCbits.TRISC14
-
-//Power outputs
-#define PWR1			LATDbits.LATD4		//OC5
-#define PWR2			LATDbits.LATD5
-#define PWR3			LATDbits.LATD6	
-#define PWR4			LATDbits.LATD7	
-#define PWR1_TRIS		TRISDbits.TRISD4	
-#define PWR2_TRIS		TRISDbits.TRISD5
-#define PWR3_TRIS		TRISDbits.TRISD6
-#define PWR4_TRIS		TRISDbits.TRISD7
-
-//Motor #1
-#define IN1_M1			LATDbits.LATD0		//OC1
-#define IN2_M1			LATDbits.LATD2		//OC3
-#define IN1_M1_TRIS		TRISDbits.TRISD0
-#define IN2_M1_TRIS		TRISDbits.TRISD2
-
-//Motor #2
-#define IN1_M2			LATDbits.LATD1		//OC2
-#define IN2_M2			LATDbits.LATD3		//OC4
-#define IN1_M2_TRIS		TRISDbits.TRISD1
-#define IN2_M2_TRIS		TRISDbits.TRISD3
-
 //CAN
 #define CRX1_TRIS		TRISFbits.TRISF0	
 #define CTX1_TRIS		TRISFbits.TRISF1
-#define CRX2_TRIS		TRISBbits.TRISB14
-#define CTX2_TRIS		TRISBbits.TRISB8
 
-//UART
-#define U3ARX_TRIS		TRISFbits.TRISF4
-#define U3ATX_TRIS		TRISFbits.TRISF5
+//SPI
+#define SPICLK_TRIS		TRISGbits.TRISG6
+#define SPISDO_TRIS		TRISGbits.TRISG8
+#define SPICS_TRIS 		TRISGbits.TRISG9
+#define SPISDI_TRIS		TRISGbits.TRISG7
 
-//#define USE_SELF_POWER_SENSE_IO
-#define tris_self_power     TRISAbits.TRISA2    // Input
-#define self_power          1
-
-//#define USE_USB_BUS_SENSE_IO
-#define tris_usb_bus_sense  TRISBbits.TRISB5    // Input
-#define USB_BUS_SENSE       1
-
-
-/** I/O pin definitions ********************************************/
-#define INPUT_PIN 1
-#define OUTPUT_PIN 0
 
 #endif
