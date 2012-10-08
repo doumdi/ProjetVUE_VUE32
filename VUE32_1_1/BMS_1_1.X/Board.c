@@ -11,6 +11,7 @@
 #include "../src/NETV32_Common.h"
 #include "../src/VUE32_Impl.h"
 #include "../src/VUE32_Utils.h"
+#include "BMS_Memory.h"
 #include <plib.h>
 
 #define FIRMWARE_VERSION 0x0001
@@ -24,6 +25,7 @@ unsigned int m_unBoardId;
  */
 void InitBoard(void)
 {
+    // Initialize clock
     SYSTEMConfigPerformance(GetSystemClock());
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PCACHE);
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PB_BUS);
@@ -57,13 +59,16 @@ void InitBoard(void)
     // Initialize SPI pins as inputs
     SPICLK_TRIS = 1;
     SPISDO_TRIS	= 1;
-    SPICS_TRIS = 1;
+    SPI_CS_TRIS = 1;
     SPISDI_TRIS	= 1;
     
-    //TODO: Inti unused pins as inputs
+    //TODO: Init unused pins as inputs
     
     // Read the board ID
-    m_unBoardId = DIO_PORT & DIO_MASK;
+    m_unBoardId = (DIO_PORT & DIO_MASK) ^ DIO_MASK;
+
+    // Read the parameters previously saved in flash
+    loadDataFromMemory();
     
     //Enables the core to handle any pending interrupt requests
     asm volatile ("ei"); 
@@ -89,7 +94,7 @@ unsigned short GetFirmVersion(void)
 // Get our network address (depending of which VUE32 card we are)
 unsigned char GetMyAddr()
 {
-    return GetBoardID();
+    return (m_unBoardId & 0x000000FF);
 }
 
 /*

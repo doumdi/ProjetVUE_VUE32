@@ -41,11 +41,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/main.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/BMS.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o.d ${OBJECTDIR}/_ext/1360937237/communication.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o.d ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d ${OBJECTDIR}/Board.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/BMS.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/CANFunctions.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o.d ${OBJECTDIR}/_ext/1360937237/communication.o.d ${OBJECTDIR}/Board.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o.d ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d ${OBJECTDIR}/BMS.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/Spi.o.d ${OBJECTDIR}/BMS_Memory.o.d ${OBJECTDIR}/BQ_Com.o.d ${OBJECTDIR}/BQ_Branch.o.d ${OBJECTDIR}/BQ.o.d ${OBJECTDIR}/CANFunctions.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/main.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/BMS.o
+OBJECTFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/main.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/CANFunctions.o
 
 
 CFLAGS=
@@ -91,6 +91,16 @@ ${OBJECTDIR}/_ext/1360937237/communication.o: ../src/communication.c  nbproject/
 	@${RM} ${OBJECTDIR}/_ext/1360937237/communication.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/communication.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/_ext/1360937237/communication.o.d" -o ${OBJECTDIR}/_ext/1360937237/communication.o ../src/communication.c   
 	
+${OBJECTDIR}/Board.o: Board.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/Board.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/Board.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/Board.o.d" -o ${OBJECTDIR}/Board.o Board.c   
+	
+${OBJECTDIR}/interrupts.o: interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/interrupts.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/interrupts.o.d" -o ${OBJECTDIR}/interrupts.o interrupts.c   
+	
 ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o: ../src/NETV32_Common.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o.d 
@@ -111,25 +121,45 @@ ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o: ../src/VUE32_Utils.c  nbproject/Make
 	@${RM} ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d" -o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ../src/VUE32_Utils.c   
 	
-${OBJECTDIR}/Board.o: Board.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/BMS.o: BMS.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/Board.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/Board.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/Board.o.d" -o ${OBJECTDIR}/Board.o Board.c   
+	@${RM} ${OBJECTDIR}/BMS.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BMS.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BMS.o.d" -o ${OBJECTDIR}/BMS.o BMS.c   
 	
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c   
 	
-${OBJECTDIR}/interrupts.o: interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/Spi.o: Spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/interrupts.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/interrupts.o.d" -o ${OBJECTDIR}/interrupts.o interrupts.c   
+	@${RM} ${OBJECTDIR}/Spi.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/Spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/Spi.o.d" -o ${OBJECTDIR}/Spi.o Spi.c   
 	
-${OBJECTDIR}/BMS.o: BMS.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/BMS_Memory.o: BMS_Memory.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/BMS.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/BMS.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BMS.o.d" -o ${OBJECTDIR}/BMS.o BMS.c   
+	@${RM} ${OBJECTDIR}/BMS_Memory.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BMS_Memory.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BMS_Memory.o.d" -o ${OBJECTDIR}/BMS_Memory.o BMS_Memory.c   
+	
+${OBJECTDIR}/BQ_Com.o: BQ_Com.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BQ_Com.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BQ_Com.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BQ_Com.o.d" -o ${OBJECTDIR}/BQ_Com.o BQ_Com.c   
+	
+${OBJECTDIR}/BQ_Branch.o: BQ_Branch.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BQ_Branch.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BQ_Branch.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BQ_Branch.o.d" -o ${OBJECTDIR}/BQ_Branch.o BQ_Branch.c   
+	
+${OBJECTDIR}/BQ.o: BQ.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BQ.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BQ.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BQ.o.d" -o ${OBJECTDIR}/BQ.o BQ.c   
+	
+${OBJECTDIR}/CANFunctions.o: CANFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/CANFunctions.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/CANFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/CANFunctions.o.d" -o ${OBJECTDIR}/CANFunctions.o CANFunctions.c   
 	
 else
 ${OBJECTDIR}/_ext/1360937237/vue32_timers.o: ../src/vue32_timers.c  nbproject/Makefile-${CND_CONF}.mk
@@ -141,6 +171,16 @@ ${OBJECTDIR}/_ext/1360937237/communication.o: ../src/communication.c  nbproject/
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/communication.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/communication.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/_ext/1360937237/communication.o.d" -o ${OBJECTDIR}/_ext/1360937237/communication.o ../src/communication.c   
+	
+${OBJECTDIR}/Board.o: Board.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/Board.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/Board.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/Board.o.d" -o ${OBJECTDIR}/Board.o Board.c   
+	
+${OBJECTDIR}/interrupts.o: interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/interrupts.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/interrupts.o.d" -o ${OBJECTDIR}/interrupts.o interrupts.c   
 	
 ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o: ../src/NETV32_Common.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
@@ -162,25 +202,45 @@ ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o: ../src/VUE32_Utils.c  nbproject/Make
 	@${RM} ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d" -o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ../src/VUE32_Utils.c   
 	
-${OBJECTDIR}/Board.o: Board.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/BMS.o: BMS.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/Board.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/Board.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/Board.o.d" -o ${OBJECTDIR}/Board.o Board.c   
+	@${RM} ${OBJECTDIR}/BMS.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BMS.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BMS.o.d" -o ${OBJECTDIR}/BMS.o BMS.c   
 	
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c   
 	
-${OBJECTDIR}/interrupts.o: interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/Spi.o: Spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/interrupts.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/interrupts.o.d" -o ${OBJECTDIR}/interrupts.o interrupts.c   
+	@${RM} ${OBJECTDIR}/Spi.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/Spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/Spi.o.d" -o ${OBJECTDIR}/Spi.o Spi.c   
 	
-${OBJECTDIR}/BMS.o: BMS.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/BMS_Memory.o: BMS_Memory.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/BMS.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/BMS.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BMS.o.d" -o ${OBJECTDIR}/BMS.o BMS.c   
+	@${RM} ${OBJECTDIR}/BMS_Memory.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BMS_Memory.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BMS_Memory.o.d" -o ${OBJECTDIR}/BMS_Memory.o BMS_Memory.c   
+	
+${OBJECTDIR}/BQ_Com.o: BQ_Com.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BQ_Com.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BQ_Com.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BQ_Com.o.d" -o ${OBJECTDIR}/BQ_Com.o BQ_Com.c   
+	
+${OBJECTDIR}/BQ_Branch.o: BQ_Branch.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BQ_Branch.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BQ_Branch.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BQ_Branch.o.d" -o ${OBJECTDIR}/BQ_Branch.o BQ_Branch.c   
+	
+${OBJECTDIR}/BQ.o: BQ.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BQ.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BQ.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/BQ.o.d" -o ${OBJECTDIR}/BQ.o BQ.c   
+	
+${OBJECTDIR}/CANFunctions.o: CANFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/CANFunctions.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/CANFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src" -MMD -MF "${OBJECTDIR}/CANFunctions.o.d" -o ${OBJECTDIR}/CANFunctions.o CANFunctions.c   
 	
 endif
 

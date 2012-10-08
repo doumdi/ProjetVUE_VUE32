@@ -114,10 +114,12 @@
 #define CTX1_TRIS		TRISFbits.TRISF1
 
 //SPI
+#define SPI_CHN 	   	SPI_CHANNEL2
 #define SPICLK_TRIS		TRISGbits.TRISG6
 #define SPISDO_TRIS		TRISGbits.TRISG8
-#define SPICS_TRIS 		TRISGbits.TRISG9
 #define SPISDI_TRIS		TRISGbits.TRISG7
+#define SPI_CS_TRIS 		TRISGbits.TRISG9
+#define SPI_CS   		PORTGbits.RG9
 
 
 #endif

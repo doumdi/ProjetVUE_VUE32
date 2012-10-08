@@ -9,14 +9,27 @@
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/USB-CDC_Microchip/Compiler.h</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/Board.c</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/communication.c</file>
-        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/def.h</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/main.c</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/interrupts.c</file>
-        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BMS.c</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/VUE32_Impl.h</file>
-        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/VUE32_Utils.h</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/NETV32_SerialDriver.h</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/vue32_timers.c</file>
         <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/NETV32_Common.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/HardwareProfile.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/src/Board.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/Spi.c</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BMS_Memory.c</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BMS_Memory.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BQ_Com.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BQ_Com.c</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/Spi.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BQ_Branch.c</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BQ_Branch.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BQ.c</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BQ.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/CANFunctions.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/CANFunctions.c</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BMS.h</file>
+        <file>file:/C:/VUE/SVN/Code/Controle/Code_VUE32/VUE32_1_1/BMS_1_1.X/BMS.c</file>
     </open-files>
 </project-private>

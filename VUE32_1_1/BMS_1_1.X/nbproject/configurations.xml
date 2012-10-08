@@ -10,6 +10,10 @@
         <itemPath>../src/communication.h</itemPath>
         <itemPath>HardwareProfile.h</itemPath>
         <itemPath>../src/USB-CDC_Microchip/Compiler.h</itemPath>
+        <itemPath>Spi.h</itemPath>
+        <itemPath>BQ_Com.h</itemPath>
+        <itemPath>BQ_Branch.h</itemPath>
+        <itemPath>BQ.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
         <itemPath>../src/bsp.h</itemPath>
@@ -22,6 +26,9 @@
       <logicalFolder name="f4" displayName="VUE32s" projectFiles="true">
         <itemPath>../src/VUE32_Impl.h</itemPath>
         <itemPath>../src/VUE32_Utils.h</itemPath>
+        <itemPath>BMS_Memory.h</itemPath>
+        <itemPath>BMS.h</itemPath>
+        <itemPath>CANFunctions.h</itemPath>
       </logicalFolder>
       <itemPath>../src/def.h</itemPath>
     </logicalFolder>
@@ -37,6 +44,10 @@
         <itemPath>../src/communication.c</itemPath>
         <itemPath>Board.c</itemPath>
         <itemPath>interrupts.c</itemPath>
+        <itemPath>Spi.c</itemPath>
+        <itemPath>BQ_Com.c</itemPath>
+        <itemPath>BQ_Branch.c</itemPath>
+        <itemPath>BQ.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
         <itemPath>../src/NETV32_Common.c</itemPath>
@@ -46,6 +57,8 @@
       <logicalFolder name="f4" displayName="VUE32s" projectFiles="true">
         <itemPath>../src/VUE32_Utils.c</itemPath>
         <itemPath>BMS.c</itemPath>
+        <itemPath>BMS_Memory.c</itemPath>
+        <itemPath>CANFunctions.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
