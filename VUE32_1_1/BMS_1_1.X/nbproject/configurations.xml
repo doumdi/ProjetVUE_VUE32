@@ -30,7 +30,6 @@
         <itemPath>BMS.h</itemPath>
         <itemPath>CANFunctions.h</itemPath>
       </logicalFolder>
-      <itemPath>../src/def.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -43,11 +42,11 @@
         <itemPath>../src/vue32_timers.c</itemPath>
         <itemPath>../src/communication.c</itemPath>
         <itemPath>Board.c</itemPath>
-        <itemPath>interrupts.c</itemPath>
         <itemPath>Spi.c</itemPath>
         <itemPath>BQ_Com.c</itemPath>
         <itemPath>BQ_Branch.c</itemPath>
         <itemPath>BQ.c</itemPath>
+        <itemPath>../src/interrupts.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
         <itemPath>../src/NETV32_Common.c</itemPath>

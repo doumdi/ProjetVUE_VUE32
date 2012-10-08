@@ -7,10 +7,10 @@
  * ****************************************************************************/
 
 #include "../src/Board.h"
-#include "HardwareProfile.h"
 #include "../src/NETV32_Common.h"
 #include "../src/VUE32_Impl.h"
 #include "../src/VUE32_Utils.h"
+#include "HardwareProfile.h"
 #include "BMS_Memory.h"
 #include <plib.h>
 

@@ -15,8 +15,6 @@
 #define NB_ROUND_BEFORE_SEND 2
 #define NB_ROUND_BEFORE_SEND_STATUS 10
 
-extern volatile unsigned int uiTimeStamp;
-
 // Local variables
 unsigned int statusCmp;
 unsigned int bufferMoy;
@@ -74,14 +72,14 @@ void ImplBMS(void)
         {
             EVERY_X_MS(2000)
                 monitor();
-            END
+            END_OF_EVERY
             break;
         }
         case Balance:
         {
             EVERY_X_MS(500)
                 balance();
-            END
+            END_OF_EVERY
             break;
         }
         case InitSleep:

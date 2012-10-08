@@ -1,6 +1,8 @@
 
+#include "HardwareProfile.h"
 #include "Board.h"
 #include "NETV32_Common.h"
+#include "VUE32_Utils.h"
 
 //Comments:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -50,6 +52,10 @@ int main(void)
     //Most of the functions in the while(1) loop are timed by Timer1
     while (1)
     {
+        EVERY_X_MS(125)
+           LED1 ^= 1;  //Toggle LED 4Hz
+        END_OF_EVERY
+
         // Process network stack
         NETV_MESSAGE oMsgRecep;
 	if(netv_transceiver((unsigned char)id, &oMsgRecep))
