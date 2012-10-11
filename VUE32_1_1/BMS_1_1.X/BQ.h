@@ -16,7 +16,7 @@
 #define DEVICE_H
 
 #include "bq_com.h"
-#include "BMS.h"
+#include "BQ_Branch.h"
 
 //Configuration du temps de conversion
 #define ADCT3US		0
@@ -24,29 +24,6 @@
 #define ADCT12US	2
 #define ADCT24US	3
 
-
-
-//Data for cellule
-typedef struct{
-	intM tension;					//Tension de la cellule
-	intM charge;					//La charge dans la cellule
-	unsigned char balanceActive;	//Le balancement est en fonction
-        unsigned int bufferTension[BUFFER_MOY];
-}Cell;
-//Data for device
-typedef struct{
-	byte status;			//General Status
-	byte alert;				//Alert
-	byte fault;				//Fault
-	byte fetStatus;			//Le status des FETS
-	byte cov_fault;			//Cell Over Voltage
-	byte cun_fault;			//Cell Under Voltage
-	byte address;			//address
-	Cell cellTable[NB_CELL_BY_DEVICE];	//Cellules data
-	intM temperature1;
-	intM temperature2;
-	intM temperature3;
-}Device;
 
 //Initialiser les valeurs dans la structure du device
 void initDeviceData(Device *device);

@@ -34,37 +34,38 @@
  * determining its suitability.  Microchip has no obligation to modify, test,
  * certify, or support the code.
  ************************************************************************/
-#include "CANFunctions.h"
+
+//#include "CANFunctions.h"
 //#include "error.h"
-#include "BMS.h"
-#include "BMS_Memory.h"
-#include "NETV32_Common.h"
-#include "NETV32_CANDriver.h"
+//#include "BMS.h"
+//#include "BMS_Memory.h"
+//#include "NETV32_Common.h"
+//#include "NETV32_CANDriver.h"
 
 // CAN du module de Tete
-static volatile BOOL CAN1MsgPrioritaireRecu = FALSE;
-static volatile BOOL CAN1MsgNormalRecu = FALSE;
-static volatile BOOL CAN1MsgOptionnelRecu = FALSE;
+//static volatile BOOL CAN1MsgPrioritaireRecu = FALSE;
+//static volatile BOOL CAN1MsgNormalRecu = FALSE;
+//static volatile BOOL CAN1MsgOptionnelRecu = FALSE;
 
-// CAN du module Chef
-static volatile BOOL CAN2MsgRecu = FALSE;
+/// CAN du module Chef
+//static volatile BOOL CAN2MsgRecu = FALSE;
 
 
 
-static volatile BOOL isCAN1MsgReceived = FALSE;
+//static volatile BOOL isCAN1MsgReceived = FALSE;
 
 /* isCAN2MsgReceived is true if CAN2 channel 1 received
  * a message. This flag is updated in the CAN2 ISR. */
-static volatile BOOL isCAN2MsgReceived = FALSE;
+//static volatile BOOL isCAN2MsgReceived = FALSE;
 
-extern BMSAddress bmsAddress;
-extern enum eStates m_state;
+//extern BMSAddress bmsAddress;
+//extern enum eStates m_state;
 
-unsigned char changeTensionReceive = 0; //Permet d'envoyer un Acknoledge quand les 2 parties du messages sont recu
+//unsigned char changeTensionReceive = 0; //Permet d'envoyer un Acknoledge quand les 2 parties du messages sont recu
 
 //------------------------------------------------------------------------------
 
-void CANTransmetBranch(Branch *branch, unsigned short address) 
+/*void CANTransmetBranch(Branch *branch, unsigned short address)
 {
  
     CANTransmetTension(branch, address);
@@ -198,10 +199,9 @@ void CANTransmetTempBal(Branch* branch, unsigned short address)
 
 //----------------------------------------------------------------------------------------------
 
-void CANTransmetStatus()
+/*void CANTransmetStatus()
 {
     NETV_MESSAGE msg;
-
 
     msg.msg_priority = NETV_PRIORITY_MEDIUM;
     msg.msg_type = VUE32_TYPE_GETVALUE;
@@ -265,7 +265,7 @@ void __attribute__((vector(46), interrupt(ipl4), nomips16)) CAN1InterruptHandler
 
 //------------------------------------------------------------------------------
 
-void CAN1RxMsgProcess() 
+/*void CAN1RxMsgProcess()
 {
     unsigned int tmp = 0;
     NETV_MESSAGE g_rMessage; // pointeur vers une FIFO
@@ -338,7 +338,7 @@ void CANSendAck()
     msg.msg_data_length = 1;
 
     //can_netv_send_message(&msg, CAN1);
-}
+}*/
 
 
 

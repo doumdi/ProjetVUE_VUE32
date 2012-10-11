@@ -12,13 +12,47 @@
  *
  **************************************************************************/
 
-#ifndef BRANCHE_H
-#define BRANCHE_H
-
 #include "BQ.h"
 #include "BQ_com.h"
 
+#ifndef BRANCHE_H
+#define BRANCHE_H
 
+#define BUFFER_MOY  1
+
+//Branch
+#define NB_DEVICE_BY_BRANCH					2			// Number Max of device/branch
+
+//Device
+#define NB_CELL_BY_DEVICE					4			// Number of cell/device
+
+
+typedef struct{
+	unsigned int value;
+	unsigned char changed;
+}intM;
+
+//Data for cellule
+typedef struct{
+	intM tension;					//Tension de la cellule
+	intM charge;					//La charge dans la cellule
+	unsigned char balanceActive;	//Le balancement est en fonction
+        unsigned int bufferTension[BUFFER_MOY];
+}Cell;
+//Data for device
+typedef struct{
+	byte status;			//General Status
+	byte alert;				//Alert
+	byte fault;				//Fault
+	byte fetStatus;			//Le status des FETS
+	byte cov_fault;			//Cell Over Voltage
+	byte cun_fault;			//Cell Under Voltage
+	byte address;			//address
+	Cell cellTable[NB_CELL_BY_DEVICE];	//Cellules data
+	intM temperature1;
+	intM temperature2;
+	intM temperature3;
+}Device;
 
 //Data for branch
 typedef struct {

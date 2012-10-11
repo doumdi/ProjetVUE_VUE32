@@ -102,7 +102,7 @@ BYTE CAN1MessageFifoArea[4 * NB_MESSAGE_FIFO * 16];
 
 
 
-int CAN1Init(void);
+/*int CAN1Init(void);
 void CAN1RxMsgProcess(void);
 void CAN1TxSendLEDMsg(void);
 
@@ -128,6 +128,6 @@ CANTxMessageBuffer* CANCGetMessageNormal(void);
 CANTxMessageBuffer* CANCGetMessageHighest(void);
 void CANCompleteMessageAndSendNormal(CANTxMessageBuffer * message,unsigned short address);
 void CANSendNormalMessage(CANTxMessageBuffer * message,unsigned short address, unsigned char DLC);
-void CANCompleteMessageAndSendHighest(CANTxMessageBuffer * message,unsigned short address);
+void CANCompleteMessageAndSendHighest(CANTxMessageBuffer * message,unsigned short address);*/
 
 #endif
