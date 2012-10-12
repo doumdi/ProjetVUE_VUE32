@@ -64,6 +64,9 @@
 
 #define ADDR_CAN_ODB 0x00
 
+#define CG_ID_BMS_CELLGROUP_VOLT1_TEMP = 0x00
+#define CG_ID_BMS_CELLGROUP_VOLT2 = 0x01
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
