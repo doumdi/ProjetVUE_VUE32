@@ -137,32 +137,102 @@ void ImplBMS(void)
  */
 void OnMsgBMS(NETV_MESSAGE *msg)
 {
+    int cmd;
+    cmd = msg->msg_cmd;
     // Deal with SETVALUE requests
-    ON_MSG_TYPE( VUE32_TYPE_SETVALUE )
+    switch(msg->msg_type)
+    {
+        case VUE32_TYPE_SETVALUE:
+        {
+            if(cmd == E_ID_BMS_STATE_ERROR)
+            {
+                
+            }
+            else if(cmd == E_ID_BMS_TENSIONS && msg->msg_data_length == (4*sizeof(float)))
+            {
+                tensionMaxCell = ((float*)msg->msg_data)[0];
+                gapOverMinCell = ((float*)(msg->msg_data+sizeof(float)))[0];  
+                tensionStartFet = ((float*)(msg->msg_data+(2*sizeof(float))))[0];
+                tensionMinCell = ((float*)(msg->msg_data+(3*sizeof(float))))[0];
+            }
+            else if(cmd == E_ID_BMS_TEMPERATURES && msg->msg_data_length == (3*sizeof(float)))
+            {
+                temperatureMaxCell = ((float*)msg->msg_data)[0];
+                temperatureMaxRes = ((float*)(msg->msg_data+sizeof(float)))[0];
+                tensionMaxOpenContactor = ((float*)(msg->msg_data+sizeof(float)+sizeof(float)))[0];
+            }
+            else if(cmd == E_ID_BMS_STATE_BALANCING && msg->msg_data_length == 1)
+            {
+                if(msg->msg_data[0] == 1)
+                {
+                    setState(Balance);
+                }
+                else
+                {
+                    setState(Monitor);
+                }
+            }
+            break;
+        }
+            
+        case VUE32_TYPE_GETVALUE:
+        {
+            char add;
+            if(cmd == E_ID_BMS_BOARD_TEMP)
+            {
+                msg->msg_type = msg->msg_type + 1;
+                msg->msg_remote = 0;
+                add = msg->msg_dest;
+                msg->msg_dest = msg->msg_source;
+                if ( msg->msg_source == 0x3F )
+                    msg->msg_source = GetMyAddr();
+                else
+                    msg->msg_source = add;
+                    msg->msg_data_length = sizeof(float);
+                    //ToDo: Set msg_data to tempsRes
+                    //((float*)msg->msg_data)[0] = ;
+                    netv_send_message(msg);
+            }
+            else if(cmd == E_ID_BMS_CELL_GROUP1)
+            {
+                msg->msg_type = msg->msg_type + 1;
+                msg->msg_remote = 0;
+                add = msg->msg_dest;
+                msg->msg_dest = msg->msg_source;
+                if ( msg->msg_source == 0x3F )
+                    msg->msg_source = GetMyAddr();
+                else
+                    msg->msg_source = add;
+                msg->msg_data_length = (3*sizeof(float));
+                //ToDo: Set data values (cell voltage 1, cell voltage 2 and temperature)
+                //((float*)msg->msg_data)[0] = ;
+                //((float*)(msg->msg_data+sizeof(float)))[0] = ;
+                //((float*)(msg->msg_data+(2*sizeof(float))))[0] = ;
+                netv_send_message(msg);
+            }
+            else if(cmd == E_ID_BMS_CELL_GROUP2)
+            {
+                msg->msg_type = msg->msg_type + 1;
+                msg->msg_remote = 0;
+                add = msg->msg_dest;
+                msg->msg_dest = msg->msg_source;
+                if ( msg->msg_source == 0x3F )
+                    msg->msg_source = GetMyAddr();
+                else
+                    msg->msg_source = add;
+                msg->msg_data_length = (2*sizeof(float));
+                //ToDo: Set data values (cell voltage 3, cell voltage 4)
+                //((float*)msg->msg_data)[0] = ;
+                //((float*)(msg->msg_data+sizeof(float)))[0] = ;
+                netv_send_message(msg);
+            }
+            break;
+        }
 
-        // ToDo : Reset error state
-        //ACTION1(E_ID_BMS_STATE_ERROR, float, 1)
-        //END_OF_ACTION
-
-        //ACTION4(E_ID_BMS_TENSIONS, float,  tensionMaxCell, float, gapOverMinCell, float, tensionStartFet, float, tensionMinCell)
-        //END_OF_ACTION
-
-        ACTION3(E_ID_BMS_TEMPERATURES, float, temperatureMaxCell, float, temperatureMaxRes, float, tensionMaxOpenContactor)
-        END_OF_ACTION
-
-        //ACTION1(E_ID_BMS_STATE_BALANCING, float, 1)
-        // ToDo : Set BMS state to Balancing or Normal
-        //END_OF_ACTION
-    
-    END_OF_MSG_TYPE
-
-    // Deal with GETVALUE requests
-    ON_MSG_TYPE_RTR( VUE32_TYPE_GETVALUE )
-        ANSWER1(E_ID_BMS_BOARD_TEMP, float, temperatureMaxRes)
-        ANSWER3(E_ID_BMS_CELL_GROUP1, float, 2, float, 3, float, 4)
-        ANSWER2(E_ID_BMS_CELL_GROUP2, float, 2, float, 3)
-    END_OF_MSG_TYPE
-
+        default:
+            
+            break;
+    }
 }
 
 
