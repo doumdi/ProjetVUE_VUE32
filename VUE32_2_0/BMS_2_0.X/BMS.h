@@ -101,39 +101,5 @@ unsigned int temperatureMaxRes;
 enum eStates{InitSleep,Sleep,Balance,Monitor,InitBQ,InitPeripheral,Test,WakeUp,WaitStabiliseTension,WaitStabiliseTemp,ProblemDetected};
 
 ////////////////////////////////////////////////////////////////////////////////
-// Fonctions from CANFunctions.h
-////////////////////////////////////////////////////////////////////////////////
-
-//int CAN1Init(void);
-void CAN1RxMsgProcess(void);
-//void CAN1TxSendLEDMsg(void);
-
-void CANSendAck();
-
-//void CAN1RxPrioritaireMsgProcess();//void CANTransmetChienDeGarde(void);
-//void CAN1RxPrioritaireMsgProcess();
-
-void CAN1RxNormalMsgProcess();
-
-
-
-void CANTransmetBranch(Branch *branch,unsigned short address);
-void CANTransmetStatus();
-void CANTransmetTempBal(Branch* branch,unsigned short address);
-//void CANTransmetTensionMinMax(Branch* branch,unsigned short address, unsigned char send);
-void CANTransmetTension(Branch* branch,unsigned short address);
-
-
-void CANTransmetOpenContactor();
-//void PadMessageWithZeros(CANTxMessageBuffer * message,unsigned char start, unsigned char end);
-
-
-//CANTxMessageBuffer* CANCGetMessageNormal(void);
-//CANTxMessageBuffer* CANCGetMessageHighest(void);
-//void CANCompleteMessageAndSendNormal(CANTxMessageBuffer * message,unsigned short address);
-//void CANSendNormalMessage(CANTxMessageBuffer * message,unsigned short address, unsigned char DLC);
-//void CANCompleteMessageAndSendHighest(CANTxMessageBuffer * message,unsigned short address);
-
-////////////////////////////////////////////////////////////////////////////////
 
 #endif // _BMS_H_

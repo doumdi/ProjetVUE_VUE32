@@ -29,7 +29,6 @@
         <itemPath>../src/VUE32_Utils.h</itemPath>
         <itemPath>BMS_Memory.h</itemPath>
         <itemPath>BMS.h</itemPath>
-        <itemPath>CANFunctions.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -59,7 +58,6 @@
         <itemPath>../src/VUE32_Utils.c</itemPath>
         <itemPath>BMS.c</itemPath>
         <itemPath>BMS_Memory.c</itemPath>
-        <itemPath>CANFunctions.c</itemPath>
         <itemPath>BMS_Impl.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
