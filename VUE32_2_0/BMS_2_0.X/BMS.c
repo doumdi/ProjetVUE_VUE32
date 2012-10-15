@@ -161,7 +161,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             {
                 temperatureMaxCell = ((float*)msg->msg_data)[0];
                 temperatureMaxRes = ((float*)(msg->msg_data+sizeof(float)))[0];
-                branch0->temperatureMaxResistance.changed = 1;
+                branch0.temperatureMaxResistance.changed = 1;
                 tensionMaxOpenContactor = ((float*)(msg->msg_data+sizeof(float)+sizeof(float)))[0];
             }
             else if(cmd == E_ID_BMS_STATE_BALANCING && msg->msg_data_length == 1)
@@ -193,9 +193,9 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_source = add;
                     msg->msg_data_length = sizeof(float);
 
-                    branch0->temperatureMaxResistance.changed = 0;
-                    msg.msg_data[0] = 0xFF & branch0->temperatureMaxResistance.value;
-                    msg.msg_data[1] = 0xFF & (branch0->temperatureMaxResistance.value >> 8);
+                    branch0.temperatureMaxResistance.changed = 0;
+                    msg->msg_data[0] = 0xFF & branch0.temperatureMaxResistance.value;
+                    msg->msg_data[1] = 0xFF & (branch0.temperatureMaxResistance.value >> 8);
                     netv_send_message(msg);
             }
             else if(cmd == E_ID_BMS_CELL_GROUP1)
@@ -212,43 +212,43 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     // Send Cells 1 and 2 voltages and device temperature
                     msg->msg_data_length = (3*sizeof(float)+8);
 
-                    branch0->deviceTable[1].cellTable[0].tension.changed = 0;
-                    branch0->deviceTable[1].cellTable[1].tension.changed = 0;
+                    branch0.deviceTable[1].cellTable[0].tension.changed = 0;
+                    branch0.deviceTable[1].cellTable[1].tension.changed = 0;
 
 
                     // CellGroup 1 resource ID
-                    msg.msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT1_TEMP);
+                    msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT1_TEMP);
 
                     // CellGroup 1 Cell 1
-                    msg.msg_data[1] = 0xFF & branch0->deviceTable[1].cellTable[0].tension.value;
-                    msg.msg_data[2] = 0xFF & (branch0->deviceTable[1].cellTable[0].tension.value >> 8);
+                    msg->msg_data[1] = 0xFF & branch0.deviceTable[1].cellTable[0].tension.value;
+                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[1].cellTable[0].tension.value >> 8);
 
                     // CellGroup 1 Cell 2
-                    msg.msg_data[3] = 0xFF & branch0->deviceTable[1].cellTable[1].tension.value;
-                    msg.msg_data[4] = 0xFF & (branch0->deviceTable[1].cellTable[1].tension.value >> 8);
+                    msg->msg_data[3] = 0xFF & branch0.deviceTable[1].cellTable[1].tension.value;
+                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[1].cellTable[1].tension.value >> 8);
 
                     // CellGroup 1 Temperature
-                    msg.msg_data[5] = 0xFF & branch0->deviceTable[1].temperature1.value;
-                    msg.msg_data[6] = 0xFF & (branch0->deviceTable[1].temperature1.value >> 8);
+                    msg->msg_data[5] = 0xFF & branch0.deviceTable[1].temperature1.value;
+                    msg->msg_data[6] = 0xFF & (branch0.deviceTable[1].temperature1.value >> 8);
 
                     netv_send_message(msg);
 
                     // Send Cell 3 and 4 voltages
                     msg->msg_data_length = (2*sizeof(float)+8);
 
-                    branch0->deviceTable[1].cellTable[2].tension.changed = 0;
-                    branch0->deviceTable[1].cellTable[3].tension.changed = 0;
+                    branch0.deviceTable[1].cellTable[2].tension.changed = 0;
+                    branch0.deviceTable[1].cellTable[3].tension.changed = 0;
                     
                     // CellGroup 1 Resource ID
-                    msg.msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT2);
+                    msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT2);
                     
                     // CellGroup 1 Cell 3
-                    msg.msg_data[1] = 0xFF & branch0->deviceTable[1].cellTable[2].tension.value;
-                    msg.msg_data[2] = 0xFF & (branch0->deviceTable[1].cellTable[2].tension.value >> 8);
+                    msg->msg_data[1] = 0xFF & branch0.deviceTable[1].cellTable[2].tension.value;
+                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[1].cellTable[2].tension.value >> 8);
                     
                     // CellGroup 1 Cell 4
-                    msg.msg_data[3] = 0xFF & branch0->deviceTable[1].cellTable[3].tension.value;
-                    msg.msg_data[4] = 0xFF & (branch0->deviceTable[1].cellTable[3].tension.value >> 8);
+                    msg->msg_data[3] = 0xFF & branch0.deviceTable[1].cellTable[3].tension.value;
+                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[1].cellTable[3].tension.value >> 8);
 
                     netv_send_message(msg);
             }
@@ -266,42 +266,42 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     // Send Cells 5 and 6 voltages and device temperature
                     msg->msg_data_length = (3*sizeof(float)+8);
 
-                    branch0->deviceTable[2].cellTable[0].tension.changed = 0;
-                    branch0->deviceTable[2].cellTable[1].tension.changed = 0;
+                    branch0.deviceTable[2].cellTable[0].tension.changed = 0;
+                    branch0.deviceTable[2].cellTable[1].tension.changed = 0;
 
                     // CellGroup 2 Resource ID
-                    msg.msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT1_TEMP);
+                    msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT1_TEMP);
 
                     // CellGroup 2 Cell 1
-                    msg.msg_data[1] = 0xFF & branch0->deviceTable[2].cellTable[0].tension.value;
-                    msg.msg_data[2] = 0xFF & (branch0->deviceTable[2].cellTable[0].tension.value >> 8);
+                    msg->msg_data[1] = 0xFF & branch0.deviceTable[2].cellTable[0].tension.value;
+                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[2].cellTable[0].tension.value >> 8);
 
                     // CellGroup 2 Cell 2
-                    msg.msg_data[3] = 0xFF & branch0->deviceTable[2].cellTable[1].tension.value;
-                    msg.msg_data[4] = 0xFF & (branch0->deviceTable[2].cellTable[1].tension.value >> 8);
+                    msg->msg_data[3] = 0xFF & branch0.deviceTable[2].cellTable[1].tension.value;
+                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[2].cellTable[1].tension.value >> 8);
 
                     // CellGroup 2 Temperature
-                    msg.msg_data[5] = 0xFF & branch0->deviceTable[2].temperature1.value;
-                    msg.msg_data[6] = 0xFF & (branch0->deviceTable[2].temperature1.value >> 8);
+                    msg->msg_data[5] = 0xFF & branch0.deviceTable[2].temperature1.value;
+                    msg->msg_data[6] = 0xFF & (branch0.deviceTable[2].temperature1.value >> 8);
 
                     netv_send_message(msg);
 
                     // Send Cell 7 and 8 voltages
                     msg->msg_data_length = (2*sizeof(float)+8);
 
-                    branch0->deviceTable[2].cellTable[2].tension.changed = 0;
-                    branch0->deviceTable[2].cellTable[3].tension.changed = 0;
+                    branch0.deviceTable[2].cellTable[2].tension.changed = 0;
+                    branch0.deviceTable[2].cellTable[3].tension.changed = 0;
 
                     // CellGroup 2 resource ID
-                    msg.msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT2);
+                    msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT2);
 
                     // CellGroup 2 Cell 3
-                    msg.msg_data[1] = 0xFF & branch0->deviceTable[2].cellTable[2].tension.value;
-                    msg.msg_data[2] = 0xFF & (branch0->deviceTable[2].cellTable[2].tension.value >> 8);
+                    msg->msg_data[1] = 0xFF & branch0.deviceTable[2].cellTable[2].tension.value;
+                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[2].cellTable[2].tension.value >> 8);
 
                     // CellGroup 2 Cell 4
-                    msg.msg_data[3] = 0xFF & branch0->deviceTable[2].cellTable[3].tension.value;
-                    msg.msg_data[4] = 0xFF & (branch0->deviceTable[2].cellTable[3].tension.value >> 8);
+                    msg->msg_data[3] = 0xFF & branch0.deviceTable[2].cellTable[3].tension.value;
+                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[2].cellTable[3].tension.value >> 8);
 
                     netv_send_message(msg);
             }

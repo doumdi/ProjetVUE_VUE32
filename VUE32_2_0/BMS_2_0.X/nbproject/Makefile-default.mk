@@ -26,12 +26,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=elf
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
 # Object Directory
@@ -41,11 +41,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/CANFunctions.o ${OBJECTDIR}/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o.d ${OBJECTDIR}/_ext/1360937237/communication.o.d ${OBJECTDIR}/Board.o.d ${OBJECTDIR}/Spi.o.d ${OBJECTDIR}/BQ_Com.o.d ${OBJECTDIR}/BQ_Branch.o.d ${OBJECTDIR}/BQ.o.d ${OBJECTDIR}/_ext/1360937237/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o.d ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d ${OBJECTDIR}/BMS.o.d ${OBJECTDIR}/BMS_Memory.o.d ${OBJECTDIR}/CANFunctions.o.d ${OBJECTDIR}/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/CANFunctions.o ${OBJECTDIR}/main.o ${OBJECTDIR}/_ext/1360937237/memory_map.o ${OBJECTDIR}/BMS_Impl.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o.d ${OBJECTDIR}/_ext/1360937237/communication.o.d ${OBJECTDIR}/Board.o.d ${OBJECTDIR}/Spi.o.d ${OBJECTDIR}/BQ_Com.o.d ${OBJECTDIR}/BQ_Branch.o.d ${OBJECTDIR}/BQ.o.d ${OBJECTDIR}/_ext/1360937237/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o.d ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d ${OBJECTDIR}/BMS.o.d ${OBJECTDIR}/BMS_Memory.o.d ${OBJECTDIR}/CANFunctions.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/_ext/1360937237/memory_map.o.d ${OBJECTDIR}/BMS_Impl.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/CANFunctions.o ${OBJECTDIR}/main.o
+OBJECTFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/CANFunctions.o ${OBJECTDIR}/main.o ${OBJECTDIR}/_ext/1360937237/memory_map.o ${OBJECTDIR}/BMS_Impl.o
 
 
 CFLAGS=
@@ -62,7 +62,7 @@ LDLIBSOPTIONS=
 FIXDEPS=fixDeps
 
 .build-conf:  ${BUILD_SUBPROJECTS}
-	${MAKE} ${MAKE_OPTIONS} -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE} ${MAKE_OPTIONS} -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=32MX575F512H
 MP_LINKER_FILE_OPTION=
@@ -161,6 +161,16 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c  
 	
+${OBJECTDIR}/_ext/1360937237/memory_map.o: ../src/memory_map.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/memory_map.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -MMD -MF "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" -o ${OBJECTDIR}/_ext/1360937237/memory_map.o ../src/memory_map.c  
+	
+${OBJECTDIR}/BMS_Impl.o: BMS_Impl.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BMS_Impl.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BMS_Impl.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -MMD -MF "${OBJECTDIR}/BMS_Impl.o.d" -o ${OBJECTDIR}/BMS_Impl.o BMS_Impl.c  
+	
 else
 ${OBJECTDIR}/_ext/1360937237/vue32_timers.o: ../src/vue32_timers.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
@@ -242,19 +252,29 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c  
 	
+${OBJECTDIR}/_ext/1360937237/memory_map.o: ../src/memory_map.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/memory_map.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -MMD -MF "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" -o ${OBJECTDIR}/_ext/1360937237/memory_map.o ../src/memory_map.c  
+	
+${OBJECTDIR}/BMS_Impl.o: BMS_Impl.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/BMS_Impl.o.d 
+	@${FIXDEPS} "${OBJECTDIR}/BMS_Impl.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -I"../src" -MMD -MF "${OBJECTDIR}/BMS_Impl.o.d" -o ${OBJECTDIR}/BMS_Impl.o BMS_Impl.c  
+	
 endif
 
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}       -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__ICD2RAM=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1 
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}       -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__ICD2RAM=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1 
 else
-dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}       -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION)
-	${MP_CC_DIR}\\pic32-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/BMS_1_1.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}       -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION)
+	${MP_CC_DIR}\\pic32-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  
 endif
 
 
