@@ -12,6 +12,13 @@
 #include "Board.h"
 #include "BMS.h"
 
+HDW_MAPPING gBMS_Ress[] =
+{
+    {E_ID_BMS_BOARD_TEMP, 2, 0x00},
+    {E_ID_BMS_CELL_GROUP1, 7, 0x00},
+    {E_ID_BMS_CELL_GROUP2, 7, 0x00},
+};
+
 #define NB_ROUND_BEFORE_SEND 2
 #define NB_ROUND_BEFORE_SEND_STATUS 10
 
