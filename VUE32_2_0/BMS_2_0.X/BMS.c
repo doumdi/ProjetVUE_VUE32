@@ -366,8 +366,8 @@ void CAN1RxMsgProcess()
     //Si c'est un message pour le controle du BMS par la télémétrie
 	if(netv_transceiver(bmsAddress.CANAddress,&g_rMessage))
 	{
-
-	    if (g_rMessage.msg_dest == E_ID_BMS_STATUS)
+            //
+	    if (g_rMessage.msg_dest == E_ID_BMS_TENSIONS)
 		{
 	        //si le bit de commande de reset des BQ est activé
 	        setState(g_rMessage.msg_data[0]);
@@ -585,6 +585,11 @@ void openCloseAllIO(void) {
 void OnEmergencyMsgBMS(void)
 {
     return;
+}
+
+void initBMS(void)
+{
+
 }
 
 ROUTING_TABLE *gRoutingTableBMS = NULL;

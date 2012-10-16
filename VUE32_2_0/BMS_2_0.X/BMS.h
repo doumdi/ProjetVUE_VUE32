@@ -95,6 +95,7 @@ unsigned int tensionMaxOpenContactor;
 
 unsigned int temperatureMaxCell;
 unsigned int temperatureMaxRes;
+void ImplBMS(void);
 
 //États possible du BMS
 /**	InitSleep=0, Sleep=1, Balance=2, Monitor=3, InitBQ=4 InitPeripheral=5, Test=6, WakeUp=7, WaitStabilise=8 WaitStabiliseTemp=9**/
