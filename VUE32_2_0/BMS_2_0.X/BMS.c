@@ -592,4 +592,4 @@ void InitBMS(void)
 
 }
 
-ROUTING_TABLE *gRoutingTableBMS = NULL;
+ROUTING_TABLE *gRoutingTableBMS_0 = NULL;
