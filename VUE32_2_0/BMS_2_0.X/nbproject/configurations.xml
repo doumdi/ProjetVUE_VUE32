@@ -29,6 +29,7 @@
         <itemPath>../src/VUE32_Utils.h</itemPath>
         <itemPath>BMS_Memory.h</itemPath>
         <itemPath>BMS.h</itemPath>
+        <itemPath>BMS_Impl.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"

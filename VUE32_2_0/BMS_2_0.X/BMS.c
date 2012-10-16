@@ -587,7 +587,7 @@ void OnEmergencyMsgBMS(void)
     return;
 }
 
-void initBMS(void)
+void InitBMS(void)
 {
 
 }
