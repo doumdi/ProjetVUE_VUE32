@@ -151,86 +151,86 @@ void status(Branch *branch)
 //Obtenir la tension des cellules
 void updateCellVoltage(Branch *branch, int bufferNB)
 {
-	unsigned char i = 3;
-	unsigned char deviceNb = 0;
-	unsigned int tmpTensionMin =0;
-	unsigned int tmpTensionMax =0;
-	unsigned char tmpTensionMinNb = 0;
-	unsigned char tmpTensionMaxNb = 0;
-	unsigned int tmpTemperatureMaxRes = 0;
-	unsigned char io_ctrl = 0;
-	unsigned char tmpIO_ctrl = 0;
-	
-	//Met la tension sur la patte du Température 1 pour la conversion.
-	readRegister(branch->id,branch->deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
-	tmpIO_ctrl = (io_ctrl | IO_CTRL_DEFAULT);
-	writeRegister(branch->id,BROADCAST_ADDRESS,IO_CONTROL,tmpIO_ctrl);
-	tmpIO_ctrl = 0;
-	readRegister(branch->id,branch->deviceTable[0].address,IO_CONTROL,1,&tmpIO_ctrl);
-	delayTime(100);
+    unsigned char i = 3;
+    unsigned char deviceNb = 0;
+    unsigned int tmpTensionMin =0;
+    unsigned int tmpTensionMax =0;
+    unsigned char tmpTensionMinNb = 0;
+    unsigned char tmpTensionMaxNb = 0;
+    unsigned int tmpTemperatureMaxRes = 0;
+    unsigned char io_ctrl = 0;
+    unsigned char tmpIO_ctrl = 0;
 
-	//Envoie une commande de conversion
-	writeRegister(branch->id,BROADCAST_ADDRESS,ADC_CONVERT,0x01);
+    //Met la tension sur la patte du Température 1 pour la conversion.
+    readRegister(branch->id,branch->deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
+    tmpIO_ctrl = (io_ctrl | IO_CTRL_DEFAULT);
+    writeRegister(branch->id,BROADCAST_ADDRESS,IO_CONTROL,tmpIO_ctrl);
+    tmpIO_ctrl = 0;
+    readRegister(branch->id,branch->deviceTable[0].address,IO_CONTROL,1,&tmpIO_ctrl);
+    delayTime(100);
 
-	do{
-		delayTime(100);
-		//Regarde si la conversion est terminée
-		readRegister(branch->id,branch->deviceTable[0].address,DEVICE_STATUS,1,&branch->deviceTable[0].status);
-		if(i-- ==0)
-		{
-			// Todo: signalError(ERROR_BMS_TEMPS_DE_CONVERSION_DEPASSE);
-		}		
-		
-	}while((branch->deviceTable[0].status & 0x01) == 0x00);
+    //Envoie une commande de conversion
+    writeRegister(branch->id,BROADCAST_ADDRESS,ADC_CONVERT,0x01);
 
-	for(deviceNb=0; deviceNb < nbDevice; deviceNb++)
-	{
-		//Lecture de la tension
-		getCellVoltage(branch->id,&branch->deviceTable[deviceNb],bufferNB,&tmpTensionMin,&tmpTensionMax,&tmpTensionMinNb,&tmpTensionMaxNb);
-		//Lecture de la température
-		getTemperature1(branch->id,&branch->deviceTable[deviceNb]);
-		getTemperature2(branch->id,&branch->deviceTable[deviceNb]);
-		getGPAI(branch->id,&branch->deviceTable[deviceNb]);
+    do{
+            delayTime(100);
+            //Regarde si la conversion est terminée
+            readRegister(branch->id,branch->deviceTable[0].address,DEVICE_STATUS,1,&branch->deviceTable[0].status);
+            if(i-- ==0)
+            {
+                    // Todo: signalError(ERROR_BMS_TEMPS_DE_CONVERSION_DEPASSE);
+            }
 
-                if(bufferNB == (BUFFER_MOY-1))
-                {
-                    if(deviceNb ==0 || branch->tensionMin > tmpTensionMin)
-                    {
-                            branch->tensionMin =  tmpTensionMin;
-                            branch->tensionMinNb = deviceNb*NB_CELL_BY_DEVICE + tmpTensionMinNb;
-                    }
-                    if(deviceNb == 0 || branch->tensionMax < tmpTensionMax)
-                    {
-                            branch->tensionMax = tmpTensionMax;
-                            branch->tensionMaxNb = deviceNb*NB_CELL_BY_DEVICE + tmpTensionMaxNb;
-                    }
-                }
-		if(deviceNb ==0 || branch->temperatureMin > branch->deviceTable[deviceNb].temperature1.value)
-		{
-			branch->temperatureMin =  branch->deviceTable[deviceNb].temperature1.value;
-		}
-		if(deviceNb == 0 || branch->temperatureMax < branch->deviceTable[deviceNb].temperature1.value)
-		{
-			branch->temperatureMax = branch->deviceTable[deviceNb].temperature1.value;
-		}
-		//Temperature Resistance	
-		if(deviceNb == 0 || branch->temperatureMaxResistance.value < branch->deviceTable[deviceNb].temperature2.value)
-		{
-			tmpTemperatureMaxRes = branch->deviceTable[deviceNb].temperature2.value;
-		}
-		if(branch->temperatureMaxResistance.value < branch->deviceTable[deviceNb].temperature3.value)
-		{
-			tmpTemperatureMaxRes = branch->deviceTable[deviceNb].temperature3.value;
-		}
-	}
+    }while((branch->deviceTable[0].status & 0x01) == 0x00);
 
-	if(tmpTemperatureMaxRes != branch->temperatureMaxResistance.value)
-	{
-		branch->temperatureMaxResistance.value = tmpTemperatureMaxRes;
-		branch->temperatureMaxResistance.changed = 1;
-	}
-	//Enleve la tension sur la patte de temperature 1 pour économiser de l'énergie
-	writeRegister(branch->id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
+    for(deviceNb=0; deviceNb < nbDevice; deviceNb++)
+    {
+        //Lecture de la tension
+        getCellVoltage(branch->id,&branch->deviceTable[deviceNb],bufferNB,&tmpTensionMin,&tmpTensionMax,&tmpTensionMinNb,&tmpTensionMaxNb);
+        //Lecture de la température
+        getTemperature1(branch->id,&branch->deviceTable[deviceNb]);
+        getTemperature2(branch->id,&branch->deviceTable[deviceNb]);
+        getGPAI(branch->id,&branch->deviceTable[deviceNb]);
+
+        if(bufferNB == (BUFFER_MOY-1))
+        {
+            if(deviceNb ==0 || branch->tensionMin > tmpTensionMin)
+            {
+                    branch->tensionMin =  tmpTensionMin;
+                    branch->tensionMinNb = deviceNb*NB_CELL_BY_DEVICE + tmpTensionMinNb;
+            }
+            if(deviceNb == 0 || branch->tensionMax < tmpTensionMax)
+            {
+                    branch->tensionMax = tmpTensionMax;
+                    branch->tensionMaxNb = deviceNb*NB_CELL_BY_DEVICE + tmpTensionMaxNb;
+            }
+        }
+        if(deviceNb ==0 || branch->temperatureMin > branch->deviceTable[deviceNb].temperature1.value)
+        {
+                branch->temperatureMin =  branch->deviceTable[deviceNb].temperature1.value;
+        }
+        if(deviceNb == 0 || branch->temperatureMax < branch->deviceTable[deviceNb].temperature1.value)
+        {
+                branch->temperatureMax = branch->deviceTable[deviceNb].temperature1.value;
+        }
+        //Temperature Resistance
+        if(deviceNb == 0 || branch->temperatureMaxResistance.value < branch->deviceTable[deviceNb].temperature2.value)
+        {
+                tmpTemperatureMaxRes = branch->deviceTable[deviceNb].temperature2.value;
+        }
+        if(branch->temperatureMaxResistance.value < branch->deviceTable[deviceNb].temperature3.value)
+        {
+                tmpTemperatureMaxRes = branch->deviceTable[deviceNb].temperature3.value;
+        }
+    }
+
+    if(tmpTemperatureMaxRes != branch->temperatureMaxResistance.value)
+    {
+            branch->temperatureMaxResistance.value = tmpTemperatureMaxRes;
+            branch->temperatureMaxResistance.changed = 1;
+    }
+    //Enleve la tension sur la patte de temperature 1 pour économiser de l'énergie
+    writeRegister(branch->id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
 }
 
 //------------------------------------------------------------------------------

@@ -6,12 +6,12 @@
  * by Maxime Bedard - 24/09/2012
  * ****************************************************************************/
 
-#include "../src/Board.h"
-#include "../src/NETV32_Common.h"
-#include "../src/VUE32_Impl.h"
-#include "../src/VUE32_Utils.h"
+#include "Board.h"
 #include "HardwareProfile.h"
+#include "NETV32_Common.h"
+#include "VUE32_Utils.h"
 #include "BMS_Memory.h"
+#include "BMS_Impl.h"
 #include <plib.h>
 
 #define FIRMWARE_VERSION 0x0001
@@ -40,7 +40,7 @@ void InitBoard(void)
     LED2_TRIS = 0;
 
     // Initialize Timers
-    InitTimers();
+    initTimerBMS();
 
     // Initialize CAN bus
     CRX1_TRIS = 1;
@@ -49,7 +49,7 @@ void InitBoard(void)
     
     // Initialize digital IOs as inputs
     DIO_TRIS |= DIO_MASK;
-    
+
     // Initialize Relays (low)
     RELAY1_TRIS = 0;
     RELAY2_TRIS = 0;
@@ -61,7 +61,7 @@ void InitBoard(void)
     SPISDO_TRIS	= 1;
     SPI_CS_TRIS = 1;
     SPISDI_TRIS	= 1;
-    
+
     //TODO: Init unused pins as inputs
     
     // Read the board ID
@@ -102,20 +102,18 @@ unsigned char GetMyAddr()
  * Drivers and unique functionnalities
  * Note : Should only be called only once at the begginning of the main
  */
-void InitVUE32(VUE32_ID id)
+/*void InitBMS(void)
 {
     // This board is not a "true" VUE32 board, there is no specific initialization
     //gInitFunc[id]();
-}
+}*/
 
 /*
  * Call the implementation of the main loop of a specific VUE32 board
  */
-void CallVUE32Impl(VUE32_ID id)
+void CallBMSImpl(void)
 {
     RunLongPolling();
-
-    // Main loop of the BMS
-    ImplBMS();
+    gImplFuncBMS[1]();
 }
 

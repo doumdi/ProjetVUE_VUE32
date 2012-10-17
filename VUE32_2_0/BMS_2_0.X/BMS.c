@@ -11,12 +11,13 @@
 #include "BQ_Branch.h"
 #include "Board.h"
 #include "BMS.h"
+#include "BMS_Impl.h"
 
 HDW_MAPPING gBMS_Ress[] =
 {
-    {E_ID_BMS_BOARD_TEMP, 2, 0x00},
-    {E_ID_BMS_CELL_GROUP1, 7, 0x00},
-    {E_ID_BMS_CELL_GROUP2, 7, 0x00},
+    {E_ID_BMS_BOARD_TEMP, 2, Sensor},
+    {E_ID_BMS_CELL_GROUP1, 7, Sensor},
+    {E_ID_BMS_CELL_GROUP2, 7, Sensor},
 };
 
 #define NB_ROUND_BEFORE_SEND 2
@@ -82,9 +83,7 @@ void ImplBMS(void)
         }
         case Monitor:
         {
-            EVERY_X_MS(2000)
-                monitor();
-            END_OF_EVERY
+            monitor();
             break;
         }
         case Balance:
@@ -412,6 +411,9 @@ void CAN1RxMsgProcess()
 // Some states implementation
 void monitor(void) {
     status(&branch0); // Mise à jour des status
+
+
+
     updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
 
     if(branch0.cellBalancing.value != 0)
@@ -589,7 +591,7 @@ void OnEmergencyMsgBMS(void)
 
 void InitBMS(void)
 {
-
+    return;
 }
 
 ROUTING_TABLE *gRoutingTableBMS_0 = NULL;

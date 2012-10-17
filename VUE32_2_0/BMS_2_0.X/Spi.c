@@ -23,11 +23,11 @@ void InitializeSPI()
 {
 	
 	SPI_CS_TRIS =0;	//Set pin as output
-
 	SPI_CS = 1;// ensure SPI memory device
 
-
 	SpiInitDevice(SPI_CHN, 1, 0, 0);
+
+        configSPIInterrupt();
 
 	ODCDbits.ODCD9 = 1;
 	CNPUE |= 0xA00;
@@ -81,5 +81,14 @@ void spiOpenDrain (void)
 	ODCG   = 0x03C0;
 	LATG   = 0x03C0;
 	TRISG &= 0xFC3F;
+}
+void configSPIInterrupt()
+{
+   
+    IEC0CLR=0x03800000; // disable all SPI interrupts
+    IFS0CLR=0x03800000; // clear any existing event
+    IPC5CLR=0x1f000000; // clear the priority
+
+    ConfigIntSPI2(SPI_RX_INT_EN|SPI_FAULT_INT_DIS|SPI_TX_INT_DIS|SPI_INT_PRI_3);
 }
 

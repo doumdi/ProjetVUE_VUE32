@@ -47,7 +47,7 @@ int main(void)
     InitBoard();
 
     // Specific VUE32 initialization
-    InitVUE32(id);
+    InitBMS();
 
     //Most of the functions in the while(1) loop are timed by Timer1
     while (1)
@@ -59,10 +59,11 @@ int main(void)
         // Process network stack
         NETV_MESSAGE oMsgRecep;
 	if(netv_transceiver((unsigned char)id, &oMsgRecep))
-            OnMsgVUE32(&oMsgRecep);
+            OnMsgBMS(&oMsgRecep);
 
         // Process state machine
-        CallVUE32Impl(id);
+        CallBMSImpl();
+
     }
 
     return 0;

@@ -209,10 +209,6 @@ void getCellVoltage(byte branchId, Device *device, int bufferNB, unsigned int *t
             (*tensionMaxNb = cellNb);
         }
 
-
-
-
-
         //increase address register for the next cell
         registerNb = registerNb + 0x02;
     }
