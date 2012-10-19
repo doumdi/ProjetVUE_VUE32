@@ -83,7 +83,9 @@ void ImplBMS(void)
         }
         case Monitor:
         {
-            monitor();
+            EVERY_X_MS(2000)
+                monitor();
+            END_OF_EVERY
             break;
         }
         case Balance:
@@ -135,6 +137,18 @@ void ImplBMS(void)
         default:
             break;
     }
+
+    //If the ErrorStateFlag is set
+    if(ErrorStateFlag == TRUE)
+    {
+        setState(Monitor);
+
+        resetBranchFault(&branch0); // Reset des fautes
+        resetBranchAlert(&branch0); // Reset des alertes
+
+        ErrorStateFlag = FALSE;
+    }
+
     bufferMoy++;
 }
 
@@ -152,10 +166,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
         {
             if(cmd == E_ID_BMS_STATE_ERROR)
             {
-                setState(Monitor);
-
-                resetBranchFault(&branch0); // Reset des fautes
-                resetBranchAlert(&branch0); // Reset des alertes
+                ErrorStateFlag = TRUE;
             }
             else if(cmd == E_ID_BMS_TENSIONS && msg->msg_data_length == (4*sizeof(float)))
             {
@@ -411,8 +422,6 @@ void CAN1RxMsgProcess()
 // Some states implementation
 void monitor(void) {
     status(&branch0); // Mise à jour des status
-
-
 
     updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
 

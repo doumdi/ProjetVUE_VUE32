@@ -11,7 +11,7 @@
 #define _BMS_H_
 
 // Includes
-//#include "GenericTypeDefs.h"
+#include "GenericTypeDefs.h"
 
 //#include <p32xxxx.h>
 //#include <sys/kmem.h>
@@ -66,6 +66,8 @@
 
 #define CG_ID_BMS_CELLGROUP_VOLT1_TEMP 0x00
 #define CG_ID_BMS_CELLGROUP_VOLT2 0x01
+
+BOOL ErrorStateFlag;
 
 
 

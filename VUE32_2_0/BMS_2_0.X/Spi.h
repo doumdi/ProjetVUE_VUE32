@@ -27,7 +27,5 @@ void sendByteSPI(unsigned char data);
 // Todo: Make this non-blocking, involves a lot of changes
 unsigned char getByteSPI();
 
-void configSPIInterrupt();
-
 
 #endif //SPI_H

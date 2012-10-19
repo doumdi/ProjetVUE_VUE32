@@ -113,7 +113,6 @@ unsigned char GetMyAddr()
  */
 void CallBMSImpl(void)
 {
-    RunLongPolling();
     gImplFuncBMS[1]();
 }
 
