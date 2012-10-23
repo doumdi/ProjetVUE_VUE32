@@ -8,9 +8,9 @@
 #ifndef BMS_IMPL_H
 #define	BMS_IMPL_H
 
-#include "NETV32_Common.h"
-#include "VUE32_Utils.h"
-#include "VUE32_Impl.h"
+#include "../src/NETV32_Common.h"
+#include "../src/VUE32_Utils.h"
+#include "../src/VUE32_Impl.h"
 
 // Number of existing BMS
 #define INDEX_BMS 1

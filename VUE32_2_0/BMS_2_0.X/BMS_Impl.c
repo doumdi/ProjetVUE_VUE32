@@ -1,8 +1,8 @@
 
 // Todo: Make this file cleaner, use VUE32_Impl.c as template
 
-#include "NETV32_Common.h"
-#include "VUE32_Utils.h"
+#include "../src/NETV32_Common.h"
+#include "../src/VUE32_Utils.h"
 #include "BMS_Impl.h"
 
 
@@ -15,49 +15,49 @@ void OnMsgBMS(NETV_MESSAGE *msg);
 
 extern HDW_MAPPING gBMS_Ress[];
 
-extern ROUTING_TABLE gRoutingTableBMS[];
+extern ROUTING_TABLE gRoutingTableBMS_0[];
 
 void OnEmergencyMsgBMS();
 
 
 // Arrays of function pointers for each implementation
-FUNC_INIT gInitFunc[1] =
+FUNC_INIT gInitFuncBMS[INDEX_BMS] =
 {
     InitBMS,
 };
 
-FUNC_IMPL gImplFunc[1] =
+FUNC_IMPL gImplFuncBMS[INDEX_BMS] =
 {
     ImplBMS,
 };
 
-FUNC_ONMSG gOnMsgFunc[1] =
+FUNC_ONMSG gOnMsgFuncBMS[INDEX_BMS] =
 {
     OnMsgBMS,
 };
 
 
-HDW_MAPPING* gHardwareMap[1] =
+HDW_MAPPING* gHardwareMapBMS[INDEX_BMS] =
 {
     gBMS_Ress,
 };
 
-unsigned int gHardwareSize[1] =
+unsigned int gHardwareSizeBMS[INDEX_BMS] =
 {
     3   //BMS
 };
 
-FUNC_ONEMERGMSG gOnEmergencyMsgVUE32[1] =
+FUNC_ONEMERGMSG gOnEmergencyMsgBMS[INDEX_BMS] =
 {
     OnEmergencyMsgBMS,
 };
 
-ROUTING_TABLE *gRoutingTable[1] =
+ROUTING_TABLE *gRoutingTableBMS[INDEX_BMS] =
 {
-    gRoutingTableBMS,
+    gRoutingTableBMS_0,
 };
 
-unsigned char gRoutingTableSize[1] =
+unsigned char gRoutingTableSizeBMS[INDEX_BMS] =
 {
     0  //BMS
 };

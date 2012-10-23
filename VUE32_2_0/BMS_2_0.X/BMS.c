@@ -5,9 +5,9 @@
  * by Maxime Bedard - 24/09/2012
  * ****************************************************************************/
 
-#include "NETV32_Common.h"
+#include "../src/NETV32_Common.h"
 #include "HardwareProfile.h"
-#include "VUE32_Utils.h"
+#include "../src/VUE32_Utils.h"
 #include "BQ_Branch.h"
 #include "Board.h"
 #include "BMS.h"
@@ -26,12 +26,11 @@ HDW_MAPPING gBMS_Ress[] =
 // Local variables
 unsigned int statusCmp;
 unsigned int bufferMoy;
-enum eStates m_state, lastState;
+//enum eStates m_state, lastState;
 int sendData;	//Compteur pour le delay pour envoyer sur le CAN
 
 // From CANFunctions.c
 extern BMSAddress bmsAddress;
-extern enum eStates m_state;
 unsigned char changeTensionReceive = 0; //Permet d'envoyer un Acknoledge quand les 2 parties du messages sont recu
 
 // Prototypes
@@ -79,20 +78,22 @@ void ImplBMS(void)
         case InitBQ:
         {
             //initBQ();
-            initBranchData(&branch0, 0); // Met les valeurs à zéro
+            // = 1;
+            /*initBranchData(&branch0, 0); // Met les valeurs à zéro
             assignAddress(&branch0); // Assigne les address au device
             status(&branch0); // Mise à jour des registres de status des devices
             setInitialConfig(&branch0); // Assigne la configuration initiale
             resetBranchFault(&branch0); // Reset des fautes
             resetBranchAlert(&branch0); // Reset des alertes
             status(&branch0); // Mise à jour des status
-
+            */
             setState(Monitor);
+            //LED1 = 0;
             break;
         }
         case Monitor:
         {
-            EVERY_X_MS(2000)
+            EVERY_X_MS(67)
                 monitor();
             END_OF_EVERY
             break;
@@ -159,6 +160,10 @@ void ImplBMS(void)
     }
 
     bufferMoy++;
+
+    EVERY_X_MS(67)
+        LED1 ^= 1;
+    END_OF_EVERY
 }
 
 /*
@@ -166,8 +171,8 @@ void ImplBMS(void)
  */
 void OnMsgBMS(NETV_MESSAGE *msg)
 {
-    char cmd;
-    //cmd = msg->msg_cmd;
+    char cmd = 0;
+    cmd = msg->msg_cmd;
 
     // Deal with SETVALUE requests
     switch(msg->msg_type)
@@ -351,6 +356,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             
             break;
     }
+
 }
 
 //--------------------------------------------------------------------------------------------------------------
@@ -441,9 +447,9 @@ void CAN1RxMsgProcess()
 //--------------------------------------------------------------------------------------------------------------
 // Some states implementation
 void monitor(void) {
-    status(&branch0); // Mise à jour des status
+    //status(&branch0); // Mise à jour des status
 
-    updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
+    //updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
 
     if(branch0.cellBalancing.value != 0)
     {
@@ -451,11 +457,11 @@ void monitor(void) {
 	    branch0.cellBalancing.changed = 1;
     }
 
-    if (verifyTensionMin() || verifyTemperatureCell())
+    /*if (verifyTensionMin() || verifyTemperatureCell())
     {
         CANTransmetOpenContactor();
         setState(ProblemDetected);
-    }
+    }*/
 
 }
 

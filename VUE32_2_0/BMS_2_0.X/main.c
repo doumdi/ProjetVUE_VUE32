@@ -1,9 +1,9 @@
 
 #include "HardwareProfile.h"
 #include "Board.h"
-#include "NETV32_Common.h"
-#include "VUE32_Utils.h"
 #include "BMS.h"
+#include "../src/NETV32_Common.h"
+#include "../src/VUE32_Utils.h"
 
 //Comments:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -49,26 +49,23 @@ int main(void)
     InitBoard();
 
     // Get the actual board ID
-    VUE32_ID id = GetBoardID();
+    //VUE32_ID id = GetBoardID();
 
     // Specific VUE32 initialization
     //InitBMS();
 
     //Set ErrorStateFlag
     ErrorStateFlag = FALSE;
+    
+    m_state = InitBQ;
 
     //Most of the functions in the while(1) loop are timed by Timer1
     int i = 1;
 
     while (i <= 2)
     {
-        EVERY_X_MS(125)
-           LED1 ^= 1;  //Toggle LED 4Hz
-        END_OF_EVERY
-
         // Process state machine
         CallBMSImpl();
-
     }
 
     return 0;

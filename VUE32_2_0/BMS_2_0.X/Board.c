@@ -8,9 +8,9 @@
 
 #include "Board.h"
 #include "HardwareProfile.h"
-#include "NETV32_Common.h"
-#include "NETV32_CANDriver.h"
-#include "VUE32_Utils.h"
+#include "../src/NETV32_Common.h"
+#include "../src/NETV32_CANDriver.h"
+#include "../src/VUE32_Utils.h"
 #include "BMS_Memory.h"
 #include "BMS_Impl.h"
 #include <plib.h>
