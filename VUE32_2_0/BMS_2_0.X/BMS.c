@@ -35,10 +35,19 @@ extern enum eStates m_state;
 unsigned char changeTensionReceive = 0; //Permet d'envoyer un Acknoledge quand les 2 parties du messages sont recu
 
 // Prototypes
+void ImplBMS(void);
 void balance(void);
 void monitor(void);
 void openContactor(void);
 void openCloseAllIO(void);
+int waitStabiliseTension();
+int problemDetected();
+void saveDataToMemory();
+int verifyTensionMin();
+int verifyTemperatureCell();
+int verifyTensionMax();
+int verifyTemperatureRes();
+int waitStabiliseTemp();
 
 void delayTime(unsigned int time) //0 à 536 000ms
 {
@@ -157,8 +166,9 @@ void ImplBMS(void)
  */
 void OnMsgBMS(NETV_MESSAGE *msg)
 {
-    int cmd;
-    cmd = msg->msg_cmd;
+    char cmd;
+    //cmd = msg->msg_cmd;
+
     // Deal with SETVALUE requests
     switch(msg->msg_type)
     {
@@ -325,6 +335,16 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     netv_send_message(msg);
             }
             break;
+        }
+
+        case VUE32_TYPE_STARTEMETTING:     //Start Emetting (Long polling)
+        {
+            ActionStartEmettings(msg);
+        }
+
+        case VUE32_TYPE_STOPEMETTING:
+        {
+            DesactivateLongPolling(msg->msg_cmd);
         }
 
         default:

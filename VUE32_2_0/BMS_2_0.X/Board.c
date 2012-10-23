@@ -9,6 +9,7 @@
 #include "Board.h"
 #include "HardwareProfile.h"
 #include "NETV32_Common.h"
+#include "NETV32_CANDriver.h"
 #include "VUE32_Utils.h"
 #include "BMS_Memory.h"
 #include "BMS_Impl.h"
@@ -113,6 +114,6 @@ unsigned char GetMyAddr()
  */
 void CallBMSImpl(void)
 {
-    gImplFuncBMS[1]();
+    gImplFuncBMS[0]();
 }
 

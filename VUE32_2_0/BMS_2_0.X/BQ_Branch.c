@@ -18,6 +18,8 @@
 
 #define IO_CTRL_DEFAULT 0x03 //TS1 TS2 ON
 
+void delayTime(unsigned int time);
+
 //------------------------------------------------------------------------------
 //Initialisation des données d'une branche
 void initBranchData(Branch *branch, byte id)
