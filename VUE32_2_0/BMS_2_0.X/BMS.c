@@ -77,18 +77,16 @@ void ImplBMS(void)
         }
         case InitBQ:
         {
-            //initBQ();
-            // = 1;
-            /*initBranchData(&branch0, 0); // Met les valeurs à zéro
+            initBranchData(&branch0, 0); // Met les valeurs à zéro
             assignAddress(&branch0); // Assigne les address au device
             status(&branch0); // Mise à jour des registres de status des devices
             setInitialConfig(&branch0); // Assigne la configuration initiale
             resetBranchFault(&branch0); // Reset des fautes
             resetBranchAlert(&branch0); // Reset des alertes
             status(&branch0); // Mise à jour des status
-            */
+            
             setState(Monitor);
-            //LED1 = 0;
+
             break;
         }
         case Monitor:
@@ -160,10 +158,6 @@ void ImplBMS(void)
     }
 
     bufferMoy++;
-
-    EVERY_X_MS(67)
-        LED1 ^= 1;
-    END_OF_EVERY
 }
 
 /*
@@ -174,6 +168,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
     char cmd = 0;
     cmd = msg->msg_cmd;
 
+
     // Deal with SETVALUE requests
     switch(msg->msg_type)
     {
@@ -183,20 +178,20 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             {
                 ErrorStateFlag = TRUE;
             }
-            else if(cmd == E_ID_BMS_TENSIONS && msg->msg_data_length == (4*sizeof(float)))
+            else if(cmd == E_ID_BMS_TENSIONS && msg->msg_data_length == (4*sizeof(short)))
             {
-                tensionMaxCell = ((float*)msg->msg_data)[0];
-                gapOverMinCell = ((float*)(msg->msg_data+sizeof(float)))[0];  
-                tensionStartFet = ((float*)(msg->msg_data+(2*sizeof(float))))[0];
-                tensionMinCell = ((float*)(msg->msg_data+(3*sizeof(float))))[0];
+                tensionMaxCell = ((short*)msg->msg_data)[0];
+                gapOverMinCell = ((short*)(msg->msg_data+sizeof(short)))[0];
+                tensionStartFet = ((short*)(msg->msg_data+(2*sizeof(short))))[0];
+                tensionMinCell = ((short*)(msg->msg_data+(3*sizeof(short))))[0];
 
             }
-            else if(cmd == E_ID_BMS_TEMPERATURES && msg->msg_data_length == (3*sizeof(float)))
+            else if(cmd == E_ID_BMS_TEMPERATURES && msg->msg_data_length == (3*sizeof(short)))
             {
-                temperatureMaxCell = ((float*)msg->msg_data)[0];
-                temperatureMaxRes = ((float*)(msg->msg_data+sizeof(float)))[0];
+                temperatureMaxCell = ((short*)msg->msg_data)[0];
+                temperatureMaxRes = ((short*)(msg->msg_data+sizeof(short)))[0];
                 branch0.temperatureMaxResistance.changed = 1;
-                tensionMaxOpenContactor = ((float*)(msg->msg_data+sizeof(float)+sizeof(float)))[0];
+                tensionMaxOpenContactor = ((short*)(msg->msg_data+sizeof(short)+sizeof(short)))[0];
             }
             else if(cmd == E_ID_BMS_STATE_BALANCING && msg->msg_data_length == 1)
             {
@@ -215,6 +210,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
         case VUE32_TYPE_GETVALUE:
         {
             char add;
+            unsigned short tempData = 0;
             if(cmd == E_ID_BMS_BOARD_TEMP)
             {
                 msg->msg_type = msg->msg_type + 1;
@@ -225,11 +221,12 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_source = GetMyAddr();
                 else
                     msg->msg_source = add;
-                    msg->msg_data_length = sizeof(float);
+                    msg->msg_data_length = sizeof(short);
 
                     branch0.temperatureMaxResistance.changed = 0;
-                    msg->msg_data[0] = 0xFF & branch0.temperatureMaxResistance.value;
-                    msg->msg_data[1] = 0xFF & (branch0.temperatureMaxResistance.value >> 8);
+                    tempData =(short)branch0.temperatureMaxResistance.value;
+                    msg->msg_data[0] = 0xFF & tempData;
+                    msg->msg_data[1] = 0xFF & (tempData >> 8);
                     netv_send_message(msg);
             }
             else if(cmd == E_ID_BMS_CELL_GROUP1)
@@ -244,7 +241,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_source = add;
                     
                     // Send Cells 1 and 2 voltages and device temperature
-                    msg->msg_data_length = (3*sizeof(float)+8);
+                    msg->msg_data_length = (3*sizeof(short)+8);
 
                     branch0.deviceTable[1].cellTable[0].tension.changed = 0;
                     branch0.deviceTable[1].cellTable[1].tension.changed = 0;
@@ -254,21 +251,24 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT1_TEMP);
 
                     // CellGroup 1 Cell 1
-                    msg->msg_data[1] = 0xFF & branch0.deviceTable[1].cellTable[0].tension.value;
-                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[1].cellTable[0].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[1].cellTable[0].tension.value;
+                    msg->msg_data[1] = 0xFF & tempData;
+                    msg->msg_data[2] = 0xFF & (tempData >> 8);
 
                     // CellGroup 1 Cell 2
-                    msg->msg_data[3] = 0xFF & branch0.deviceTable[1].cellTable[1].tension.value;
-                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[1].cellTable[1].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[1].cellTable[1].tension.value;
+                    msg->msg_data[3] = 0xFF & tempData;
+                    msg->msg_data[4] = 0xFF & (tempData >> 8);
 
                     // CellGroup 1 Temperature
-                    msg->msg_data[5] = 0xFF & branch0.deviceTable[1].temperature1.value;
-                    msg->msg_data[6] = 0xFF & (branch0.deviceTable[1].temperature1.value >> 8);
+                    tempData = (short)branch0.deviceTable[1].temperature1.value;
+                    msg->msg_data[5] = 0xFF & tempData;
+                    msg->msg_data[6] = 0xFF & (tempData >> 8);
 
                     netv_send_message(msg);
 
                     // Send Cell 3 and 4 voltages
-                    msg->msg_data_length = (2*sizeof(float)+8);
+                    msg->msg_data_length = (2*sizeof(short)+8);
 
                     branch0.deviceTable[1].cellTable[2].tension.changed = 0;
                     branch0.deviceTable[1].cellTable[3].tension.changed = 0;
@@ -277,12 +277,14 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT2);
                     
                     // CellGroup 1 Cell 3
-                    msg->msg_data[1] = 0xFF & branch0.deviceTable[1].cellTable[2].tension.value;
-                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[1].cellTable[2].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[1].cellTable[2].tension.value;
+                    msg->msg_data[1] = 0xFF & tempData;
+                    msg->msg_data[2] = 0xFF & (tempData >> 8);
                     
                     // CellGroup 1 Cell 4
-                    msg->msg_data[3] = 0xFF & branch0.deviceTable[1].cellTable[3].tension.value;
-                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[1].cellTable[3].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[1].cellTable[3].tension.value;
+                    msg->msg_data[3] = 0xFF & tempData;
+                    msg->msg_data[4] = 0xFF & (tempData >> 8);
 
                     netv_send_message(msg);
             }
@@ -298,7 +300,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_source = add;
 
                     // Send Cells 5 and 6 voltages and device temperature
-                    msg->msg_data_length = (3*sizeof(float)+8);
+                    msg->msg_data_length = (3*sizeof(short)+8);
 
                     branch0.deviceTable[2].cellTable[0].tension.changed = 0;
                     branch0.deviceTable[2].cellTable[1].tension.changed = 0;
@@ -307,21 +309,24 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT1_TEMP);
 
                     // CellGroup 2 Cell 1
-                    msg->msg_data[1] = 0xFF & branch0.deviceTable[2].cellTable[0].tension.value;
-                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[2].cellTable[0].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[2].cellTable[0].tension.value;
+                    msg->msg_data[1] = 0xFF & tempData;
+                    msg->msg_data[2] = 0xFF & (tempData >> 8);
 
                     // CellGroup 2 Cell 2
-                    msg->msg_data[3] = 0xFF & branch0.deviceTable[2].cellTable[1].tension.value;
-                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[2].cellTable[1].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[2].cellTable[1].tension.value;
+                    msg->msg_data[3] = 0xFF & tempData;
+                    msg->msg_data[4] = 0xFF & (tempData >> 8);
 
                     // CellGroup 2 Temperature
-                    msg->msg_data[5] = 0xFF & branch0.deviceTable[2].temperature1.value;
-                    msg->msg_data[6] = 0xFF & (branch0.deviceTable[2].temperature1.value >> 8);
+                    tempData = (short)branch0.deviceTable[2].temperature1.value;
+                    msg->msg_data[5] = 0xFF & tempData;
+                    msg->msg_data[6] = 0xFF & (tempData >> 8);
 
                     netv_send_message(msg);
 
                     // Send Cell 7 and 8 voltages
-                    msg->msg_data_length = (2*sizeof(float)+8);
+                    msg->msg_data_length = (2*sizeof(short)+8);
 
                     branch0.deviceTable[2].cellTable[2].tension.changed = 0;
                     branch0.deviceTable[2].cellTable[3].tension.changed = 0;
@@ -330,12 +335,14 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                     msg->msg_data[0] = (0xFF & CG_ID_BMS_CELLGROUP_VOLT2);
 
                     // CellGroup 2 Cell 3
-                    msg->msg_data[1] = 0xFF & branch0.deviceTable[2].cellTable[2].tension.value;
-                    msg->msg_data[2] = 0xFF & (branch0.deviceTable[2].cellTable[2].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[2].cellTable[2].tension.value;
+                    msg->msg_data[1] = 0xFF & tempData;
+                    msg->msg_data[2] = 0xFF & (tempData >> 8);
 
                     // CellGroup 2 Cell 4
-                    msg->msg_data[3] = 0xFF & branch0.deviceTable[2].cellTable[3].tension.value;
-                    msg->msg_data[4] = 0xFF & (branch0.deviceTable[2].cellTable[3].tension.value >> 8);
+                    tempData = (short)branch0.deviceTable[2].cellTable[3].tension.value;
+                    msg->msg_data[3] = 0xFF & tempData;
+                    msg->msg_data[4] = 0xFF & (tempData >> 8);
 
                     netv_send_message(msg);
             }
