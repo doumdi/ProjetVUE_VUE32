@@ -57,7 +57,7 @@ int main(void)
     //Set ErrorStateFlag
     ErrorStateFlag = FALSE;
     
-    m_state = InitBQ;
+    m_state = InitPeripheral;
 
     //Most of the functions in the while(1) loop are timed by Timer1
     int i = 1;

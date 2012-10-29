@@ -90,7 +90,9 @@ void writeRegister(byte cs, byte device, byte reg, byte data)
 	temp |= (buffer[2]<<24) | (buffer[1]<<16) | (buffer[0]<<8) | crc;
 
 	toggleSPI_CS();
-	sendByteSPI(buffer[2]);
+
+        while(SpiChnTxBuffEmpty(2)!= 1);
+        sendByteSPI(buffer[2]);
 	getByteSPI();
 	sendByteSPI(buffer[1]);
 	getByteSPI();

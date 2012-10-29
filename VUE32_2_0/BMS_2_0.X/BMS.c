@@ -12,6 +12,7 @@
 #include "Board.h"
 #include "BMS.h"
 #include "BMS_Impl.h"
+#include "io.h"
 
 HDW_MAPPING gBMS_Ress[] =
 {
@@ -47,6 +48,8 @@ int verifyTemperatureCell();
 int verifyTensionMax();
 int verifyTemperatureRes();
 int waitStabiliseTemp();
+void InitializeSPI();
+void netv_init_can_driver(unsigned char canAddr, CAN_MODULE CANx);
 
 void delayTime(unsigned int time) //0 à 536 000ms
 {
@@ -72,6 +75,7 @@ void ImplBMS(void)
         {
             statusCmp = 0;
             bufferMoy = 0;
+            initializePeripheral();
             setState(InitBQ);
             break;
         }
@@ -454,9 +458,9 @@ void CAN1RxMsgProcess()
 //--------------------------------------------------------------------------------------------------------------
 // Some states implementation
 void monitor(void) {
-    //status(&branch0); // Mise à jour des status
+    status(&branch0); // Mise à jour des status
 
-    //updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
+    updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
 
     if(branch0.cellBalancing.value != 0)
     {
@@ -464,11 +468,11 @@ void monitor(void) {
 	    branch0.cellBalancing.changed = 1;
     }
 
-    /*if (verifyTensionMin() || verifyTemperatureCell())
+    if (verifyTensionMin() || verifyTemperatureCell())
     {
         CANTransmetOpenContactor();
         setState(ProblemDetected);
-    }*/
+    }
 
 }
 
@@ -634,6 +638,19 @@ void OnEmergencyMsgBMS(void)
 void InitBMS(void)
 {
     return;
+}
+
+void initializePeripheral(void) {
+    //initialiseIO(); //Initialiser les IO
+    initAddress(); //Initialiser les addresses
+    InitializeSPI(); //Initialiser la communication SPI
+
+}
+
+void initAddress(void) {
+    bmsAddress.address = getAddress();
+    bmsAddress.branchAddress = getBranchAddress();
+    bmsAddress.CANAddress = PORTE ^ 0x3F;
 }
 
 ROUTING_TABLE *gRoutingTableBMS_0 = NULL;

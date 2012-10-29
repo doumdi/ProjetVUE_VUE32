@@ -15,6 +15,7 @@
         <itemPath>BQ.h</itemPath>
         <itemPath>../src/memory_map.h</itemPath>
         <itemPath>Board.h</itemPath>
+        <itemPath>io.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
         <itemPath>../src/bsp.h</itemPath>
@@ -49,6 +50,7 @@
         <itemPath>BQ.c</itemPath>
         <itemPath>../src/interrupts.c</itemPath>
         <itemPath>../src/memory_map.c</itemPath>
+        <itemPath>io.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
         <itemPath>../src/NETV32_Common.c</itemPath>
@@ -212,7 +214,7 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.end" value="0x1d07ffff"/>
         <property key="memories.programmemory.start" value="0x1d000000"/>
-        <property key="poweroptions.powerenable" value="true"/>
+        <property key="poweroptions.powerenable" value="false"/>
         <property key="programmertogo.imagename" value=""/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmspeed" value="2"/>

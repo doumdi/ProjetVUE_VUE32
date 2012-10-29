@@ -27,7 +27,7 @@ void InitializeSPI()
 
 	SpiInitDevice(SPI_CHN, 1, 0, 0);
 
-        ConfigIntSPI2(SPI_RX_INT_DIS|SPI_FAULT_INT_DIS|SPI_TX_INT_DIS|SPI_INT_PRI_3);
+        //ConfigIntSPI2(SPI_RX_INT_DIS|SPI_FAULT_INT_DIS|SPI_TX_INT_DIS|SPI_INT_PRI_3);
 
 	ODCDbits.ODCD9 = 1;
 	CNPUE |= 0xA00;

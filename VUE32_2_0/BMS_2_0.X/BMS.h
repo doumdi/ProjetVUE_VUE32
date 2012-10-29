@@ -105,6 +105,9 @@ unsigned int tensionMaxOpenContactor;
 unsigned int temperatureMaxCell;
 unsigned int temperatureMaxRes;
 
+void initializePeripheral(void);
+void initAddress(void);
+
 void delayTime(unsigned int time);
 
 
