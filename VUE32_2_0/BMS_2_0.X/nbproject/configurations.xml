@@ -51,6 +51,7 @@
         <itemPath>../src/interrupts.c</itemPath>
         <itemPath>../src/memory_map.c</itemPath>
         <itemPath>io.c</itemPath>
+        <itemPath>../src/Exception.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
         <itemPath>../src/NETV32_Common.c</itemPath>
@@ -80,8 +81,8 @@
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
-        <languageToolchain>C32</languageToolchain>
-        <languageToolchainVersion>2.02</languageToolchainVersion>
+        <languageToolchain>XC32</languageToolchain>
+        <languageToolchainVersion>1.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -113,14 +114,16 @@
         <property key="extra-include-directories" value=""/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
+        <property key="keep-inline" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>
         <property key="optimization-level" value=""/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros" value="__32MX575F512H__"/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
+        <property key="use-cci" value="false"/>
         <property key="use-indirect-calls" value="false"/>
       </C32>
       <C32-AS>

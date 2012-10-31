@@ -90,13 +90,19 @@ void ImplBMS(void)
             status(&branch0); // Mise à jour des status
             
             setState(Monitor);
+            
+            //Enables the core to handle any pending interrupt requests
+            asm volatile ("ei");
 
             break;
         }
         case Monitor:
         {
             EVERY_X_MS(67)
-                monitor();
+                LED1 ^= 1;
+            END_OF_EVERY
+            EVERY_X_MS(2000)
+                    monitor();
             END_OF_EVERY
             break;
         }
@@ -171,7 +177,6 @@ void OnMsgBMS(NETV_MESSAGE *msg)
 {
     char cmd = 0;
     cmd = msg->msg_cmd;
-
 
     // Deal with SETVALUE requests
     switch(msg->msg_type)
@@ -641,7 +646,7 @@ void InitBMS(void)
 }
 
 void initializePeripheral(void) {
-    //initialiseIO(); //Initialiser les IO
+    initialiseIO(); //Initialiser les IO
     initAddress(); //Initialiser les addresses
     InitializeSPI(); //Initialiser la communication SPI
 

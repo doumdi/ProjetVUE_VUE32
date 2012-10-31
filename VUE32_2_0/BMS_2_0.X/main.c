@@ -47,6 +47,15 @@ int main(void)
 
     // Initialize the board (communication, timers, etc).
     InitBoard();
+    NETV_MESSAGE oMsgRecep;
+    while(1)
+    {
+        if(netv_transceiver((unsigned char)GetBoardID(), &oMsgRecep))
+    {
+        LED2 ^= 1;
+        OnMsgBMS(&oMsgRecep);
+    }
+    }
 
     // Get the actual board ID
     //VUE32_ID id = GetBoardID();
@@ -60,9 +69,7 @@ int main(void)
     m_state = InitPeripheral;
 
     //Most of the functions in the while(1) loop are timed by Timer1
-    int i = 1;
-
-    while (i <= 2)
+    while (1)
     {
         // Process state machine
         CallBMSImpl();

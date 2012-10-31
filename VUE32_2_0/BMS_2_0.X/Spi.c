@@ -61,6 +61,8 @@ void toggleSPI_CS()
 	for(i=0;i<10;i++);	//delais
 
 	SPI_CS = !SPI_CS;
+
+        for(i=0;i<10;i++);	//delais
 }
 
 void sendByteSPI(unsigned char data)

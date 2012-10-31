@@ -53,8 +53,8 @@ void loadDataFromMemory()
         changed = 1;
         tensionMaxOpenContactor = TENSION_MAX_OPEN_CONTACTOR;
     }
-    if(changed)
-        saveDataToMemory();
+    //if(changed)
+    //    saveDataToMemory();
     
 }
 

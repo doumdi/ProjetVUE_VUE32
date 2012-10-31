@@ -30,6 +30,7 @@
 typedef struct{
 	unsigned int value;
 	unsigned char changed;
+        unsigned char test[3];
 }intM;
 
 //Data for cellule
@@ -37,6 +38,7 @@ typedef struct{
 	intM tension;					//Tension de la cellule
 	intM charge;					//La charge dans la cellule
 	unsigned char balanceActive;	//Le balancement est en fonction
+        unsigned char test[3];
         unsigned int bufferTension[BUFFER_MOY];
 }Cell;
 //Data for device
@@ -48,6 +50,7 @@ typedef struct{
 	byte cov_fault;			//Cell Over Voltage
 	byte cun_fault;			//Cell Under Voltage
 	byte address;			//address
+        byte test;			//test
 	Cell cellTable[NB_CELL_BY_DEVICE];	//Cellules data
 	intM temperature1;
 	intM temperature2;
@@ -57,10 +60,11 @@ typedef struct{
 //Data for branch
 typedef struct {
 	unsigned char id;							//Id de la branche
+        unsigned char test;
+	unsigned char tensionMinNb;					//Le numéro de la cellule à tension min
+	unsigned char tensionMaxNb;					//Le numéro del a cellule à tension max        
 	unsigned int tensionMin;					//Tension Min
 	unsigned int tensionMax;					//Tension Max
-	unsigned char tensionMinNb;					//Le numéro de la cellule à tension min
-	unsigned char tensionMaxNb;					//Le numéro del a cellule à tension max
 	unsigned int temperatureMin;				//Temperature min
 	unsigned int temperatureMax;				//Temperature max
 	intM temperatureMaxResistance;				//Temperature du PCB de résistance

@@ -30,7 +30,7 @@ void InitBoard(void)
     SYSTEMConfigPerformance(GetSystemClock());
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PCACHE);
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PB_BUS);
-    SYSTEMConfigPB(GetSystemClock());
+    unsigned int perifClock = SYSTEMConfigPB(GetSystemClock());
     INTEnableSystemMultiVectoredInt();
 
     //Disable JTAG port
@@ -59,7 +59,7 @@ void InitBoard(void)
     
     // Initialize SPI pins as inputs
     SPICLK_TRIS = 1;
-    SPISDO_TRIS	= 1;
+    SPISDO_TRIS	= 0;
     SPI_CS_TRIS = 1;
     SPISDI_TRIS	= 1;
 
@@ -71,8 +71,6 @@ void InitBoard(void)
     // Read the parameters previously saved in flash
     loadDataFromMemory();
     
-    //Enables the core to handle any pending interrupt requests
-    asm volatile ("ei"); 
 }
 
 /*
