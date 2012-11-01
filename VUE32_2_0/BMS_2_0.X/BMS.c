@@ -82,12 +82,24 @@ void ImplBMS(void)
         case InitBQ:
         {
             initBranchData(&branch0, 0); // Met les valeurs à zéro
-            assignAddress(&branch0); // Assigne les address au device
-            status(&branch0); // Mise à jour des registres de status des devices
+            //assignAddress(&branch0); // Assigne les address au device
+            //status(&branch0); // Mise à jour des registres de status des devices
             setInitialConfig(&branch0); // Assigne la configuration initiale
-            resetBranchFault(&branch0); // Reset des fautes
-            resetBranchAlert(&branch0); // Reset des alertes
-            status(&branch0); // Mise à jour des status
+            //resetBranchFault(&branch0); // Reset des fautes
+            //resetBranchAlert(&branch0); // Reset des alertes
+            //status(&branch0); // Mise à jour des status
+
+            /*LP_PARAMS newLongPolling;
+            HDW_MAPPING *gVUE32_Ress;
+
+            gVUE32_Ress = gHardwareMapBMS[INDEX_BMS];
+
+            newLongPolling.ucSizeData = gVUE32_Ress[i].ucDataSize
+            newLongPolling.hasLifeTime = LONG_POLLING_WITHOUT_LIFE_TIME;
+            newLongPolling.ucDestinataire = 0;
+            newLongPolling.ucResourceId = E_ID_BMS_BOARD_TEMP;
+            newLongPolling.unDelay = 100;
+            newLongPolling.ucMsgType = VUE32_TYPE_SETVALUE;*/
             
             setState(Monitor);
             
@@ -98,10 +110,8 @@ void ImplBMS(void)
         }
         case Monitor:
         {
-            EVERY_X_MS(67)
-                LED1 ^= 1;
-            END_OF_EVERY
             EVERY_X_MS(2000)
+                    LED1 ^= 1;
                     monitor();
             END_OF_EVERY
             break;
@@ -226,10 +236,11 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                 msg->msg_remote = 0;
                 add = msg->msg_dest;
                 msg->msg_dest = msg->msg_source;
-                if ( msg->msg_source == 0x3F )
-                    msg->msg_source = GetMyAddr();
+                if ( add == 0x3F )
+                    msg->msg_dest = GetMyAddr();
                 else
-                    msg->msg_source = add;
+                    msg->msg_dest = add;
+
                     msg->msg_data_length = sizeof(short);
 
                     branch0.temperatureMaxResistance.changed = 0;
@@ -463,9 +474,9 @@ void CAN1RxMsgProcess()
 //--------------------------------------------------------------------------------------------------------------
 // Some states implementation
 void monitor(void) {
-    status(&branch0); // Mise à jour des status
+    //status(&branch0); // Mise à jour des status
 
-    updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
+    //updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
 
     if(branch0.cellBalancing.value != 0)
     {
@@ -473,11 +484,11 @@ void monitor(void) {
 	    branch0.cellBalancing.changed = 1;
     }
 
-    if (verifyTensionMin() || verifyTemperatureCell())
+    /*if (verifyTensionMin() || verifyTemperatureCell())
     {
         CANTransmetOpenContactor();
         setState(ProblemDetected);
-    }
+    }*/
 
 }
 

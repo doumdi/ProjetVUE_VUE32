@@ -17,7 +17,7 @@
 
 #define FIRMWARE_VERSION 0x0001
 
-unsigned int m_unBoardId;
+unsigned int m_unBoardId = 10;
 
 /*
  * Initialize the board
@@ -40,21 +40,16 @@ void InitBoard(void)
     LED1_TRIS = 0;
     LED2_TRIS = 0;
 
-    // Initialize Timers
-    initTimerBMS();
-
-    //initAddress(); //Initialiser les addresses
-
+    // Initialize digital IOs as inputs
+    DIO_TRIS |= DIO_MASK;
+    
     // Read the board ID
     m_unBoardId = (DIO_PORT & DIO_MASK) ^ DIO_MASK;
-
+    
     // Initialize CAN bus
     CRX1_TRIS = 1;
     CTX1_TRIS = 0;
-    netv_init_can_driver(GetBoardID(),CAN1);
-    
-    // Initialize digital IOs as inputs
-    DIO_TRIS |= DIO_MASK;
+    netv_init_can_driver(GetBoardID(),CAN1);    
 
     // Initialize Relays (low)
     RELAY1_TRIS = 0;
@@ -67,6 +62,9 @@ void InitBoard(void)
     SPISDO_TRIS	= 0;
     SPI_CS_TRIS = 1;
     SPISDI_TRIS	= 1;
+
+    // Initialize Timers
+    initTimerBMS();
 
     // Read the parameters previously saved in flash
     loadDataFromMemory();

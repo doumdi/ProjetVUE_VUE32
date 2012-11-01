@@ -37,6 +37,7 @@ void update_variables(void);
 
 void InitBMS(void);
 void CallBMSImpl(void);
+void ImplBMS();
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                          //
@@ -46,49 +47,22 @@ void CallBMSImpl(void);
 
 int main(void)
 {
-    unsigned int test =0;
-
-    // Initialize the board (communication, timers, etc).
+    InitBoard();
+/*
     SYSTEMConfigPerformance(GetSystemClock());
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PCACHE);
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PB_BUS);
     unsigned int perifClock = SYSTEMConfigPB(GetSystemClock());
-    // Initialize LEDs
+    INTEnableSystemMultiVectoredInt();
+        // Initialize LEDs
     LED1_TRIS = 0;
     LED2_TRIS = 0;
-
-    INTEnableSystemMultiVectoredInt();
+    // Initialize CAN bus
     CRX1_TRIS = 1;
     CTX1_TRIS = 0;
     netv_init_can_driver(GetBoardID(),CAN1);
-        // Initialize Timers
-    initTimerBMS();
-
-    NETV_MESSAGE oMsgRecep;
-    while(1)
-    {
-        if(netv_transceiver((unsigned char)GetBoardID(), &oMsgRecep))
-        {
-            LED1 ^= 1;
-            OnMsgBMS(&oMsgRecep);
-        }
-
-        /*EVERY_X_MS(1000)
-            LED2 ^= 1;
-            oMsgRecep.msg_cmd = 0;
-            oMsgRecep.msg_comm_iface = 0xFF;
-            oMsgRecep.msg_data_length = 0;
-            oMsgRecep.msg_dest = 0xFF;
-            oMsgRecep.msg_remote = 1;
-            oMsgRecep.msg_source = (unsigned char)GetBoardID();
-            oMsgRecep.msg_type = 0x80;
-            netv_send_message(&oMsgRecep);
-        END_OF_EVERY*/
-    }
-
-
-    InitBoard();
-
+    // Initialize Timers
+    initTimerBMS();*/
     // Get the actual board ID
     //VUE32_ID id = GetBoardID();
 
@@ -103,8 +77,33 @@ int main(void)
     //Most of the functions in the while(1) loop are timed by Timer1
     while (1)
     {
-        // Process state machine
-        CallBMSImpl();
+        // Process state machine        
+        ImplBMS();
+        //CallBMSImpl();        
+        
+        
+        /*NETV_MESSAGE oMsgRecep;
+
+        EVERY_X_MS(1000)
+            
+            oMsgRecep.msg_cmd = 0;
+            oMsgRecep.msg_comm_iface =0xFF;
+            oMsgRecep.msg_data_length = 0;
+            oMsgRecep.msg_dest = 0xFF;
+            oMsgRecep.msg_remote = 1;
+            oMsgRecep.msg_source = GetMyAddr();
+            oMsgRecep.msg_type = 0x80;
+            oMsgRecep.msg_priority = 1;
+            netv_send_message(&oMsgRecep );
+            LED1 ^= 1;
+        END_OF_EVERY
+
+
+        if(netv_transceiver((unsigned char)GetBoardID(), &oMsgRecep))
+        {
+            //LED2 ^= 1;
+            OnMsgBMS(&oMsgRecep);
+        }*/
     }
 
     return 0;
