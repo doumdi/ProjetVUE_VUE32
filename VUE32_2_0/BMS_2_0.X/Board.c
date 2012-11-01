@@ -30,7 +30,7 @@ void InitBoard(void)
     SYSTEMConfigPerformance(GetSystemClock());
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PCACHE);
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PB_BUS);
-    unsigned int perifClock = SYSTEMConfigPB(GetSystemClock());
+    SYSTEMConfigPB(GetSystemClock());
     INTEnableSystemMultiVectoredInt();
 
     //Disable JTAG port
