@@ -82,12 +82,12 @@ void ImplBMS(void)
         case InitBQ:
         {
             initBranchData(&branch0, 0); // Met les valeurs à zéro
-            //assignAddress(&branch0); // Assigne les address au device
-            //status(&branch0); // Mise à jour des registres de status des devices
+            assignAddress(&branch0); // Assigne les address au device
+            status(&branch0); // Mise à jour des registres de status des devices
             setInitialConfig(&branch0); // Assigne la configuration initiale
-            //resetBranchFault(&branch0); // Reset des fautes
-            //resetBranchAlert(&branch0); // Reset des alertes
-            //status(&branch0); // Mise à jour des status
+            resetBranchFault(&branch0); // Reset des fautes
+            resetBranchAlert(&branch0); // Reset des alertes
+            status(&branch0); // Mise à jour des status
 
             /*LP_PARAMS newLongPolling;
             HDW_MAPPING *gVUE32_Ress;
@@ -255,10 +255,10 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                 msg->msg_remote = 0;
                 add = msg->msg_dest;
                 msg->msg_dest = msg->msg_source;
-                if ( msg->msg_source == 0x3F )
-                    msg->msg_source = GetMyAddr();
+                if ( add == 0x3F )
+                    msg->msg_dest = GetMyAddr();
                 else
-                    msg->msg_source = add;
+                    msg->msg_dest = add;
                     
                     // Send Cells 1 and 2 voltages and device temperature
                     msg->msg_data_length = (3*sizeof(short)+8);
@@ -314,10 +314,10 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                 msg->msg_remote = 0;
                 add = msg->msg_dest;
                 msg->msg_dest = msg->msg_source;
-                if ( msg->msg_source == 0x3F )
-                    msg->msg_source = GetMyAddr();
+                if ( add == 0x3F )
+                    msg->msg_dest = GetMyAddr();
                 else
-                    msg->msg_source = add;
+                    msg->msg_dest = add;
 
                     // Send Cells 5 and 6 voltages and device temperature
                     msg->msg_data_length = (3*sizeof(short)+8);
@@ -474,9 +474,9 @@ void CAN1RxMsgProcess()
 //--------------------------------------------------------------------------------------------------------------
 // Some states implementation
 void monitor(void) {
-    //status(&branch0); // Mise à jour des status
+    status(&branch0); // Mise à jour des status
 
-    //updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
+    updateCellVoltage(&branch0,bufferMoy%BUFFER_MOY); // Mise à jour des tensions et de la température
 
     if(branch0.cellBalancing.value != 0)
     {
@@ -484,11 +484,11 @@ void monitor(void) {
 	    branch0.cellBalancing.changed = 1;
     }
 
-    /*if (verifyTensionMin() || verifyTemperatureCell())
+    if (verifyTensionMin() || verifyTemperatureCell())
     {
         CANTransmetOpenContactor();
         setState(ProblemDetected);
-    }*/
+    }
 
 }
 
