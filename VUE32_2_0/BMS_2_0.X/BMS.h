@@ -12,6 +12,7 @@
 
 // Includes
 #include "GenericTypeDefs.h"
+#include "../src/NETV32_Common.h"
 
 //#include <p32xxxx.h>
 //#include <sys/kmem.h>
@@ -110,6 +111,7 @@ void initAddress(void);
 
 void delayTime(unsigned int time);
 
+void OnMsgBMS(NETV_MESSAGE *msg);
 
 ////////////////////////////////////////////////////////////////////////////////
 

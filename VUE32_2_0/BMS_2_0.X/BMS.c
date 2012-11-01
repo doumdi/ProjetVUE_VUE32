@@ -647,7 +647,7 @@ void InitBMS(void)
 
 void initializePeripheral(void) {
     initialiseIO(); //Initialiser les IO
-    initAddress(); //Initialiser les addresses
+    //initAddress(); //Initialiser les addresses
     InitializeSPI(); //Initialiser la communication SPI
 
 }

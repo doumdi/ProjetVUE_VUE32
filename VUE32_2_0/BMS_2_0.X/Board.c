@@ -43,6 +43,11 @@ void InitBoard(void)
     // Initialize Timers
     initTimerBMS();
 
+    //initAddress(); //Initialiser les addresses
+
+    // Read the board ID
+    m_unBoardId = (DIO_PORT & DIO_MASK) ^ DIO_MASK;
+
     // Initialize CAN bus
     CRX1_TRIS = 1;
     CTX1_TRIS = 0;
@@ -63,14 +68,8 @@ void InitBoard(void)
     SPI_CS_TRIS = 1;
     SPISDI_TRIS	= 1;
 
-    //TODO: Init unused pins as inputs
-    
-    // Read the board ID
-    m_unBoardId = (DIO_PORT & DIO_MASK) ^ DIO_MASK;
-
     // Read the parameters previously saved in flash
     loadDataFromMemory();
-    
 }
 
 /*
