@@ -13,6 +13,8 @@
 #include "BMS.h"
 #include "BMS_Impl.h"
 
+void initialiseIO();
+
 HDW_MAPPING gBMS_Ress[] =
 {
     {E_ID_BMS_BOARD_TEMP, 2, Sensor},
@@ -49,6 +51,8 @@ int verifyTemperatureRes();
 int waitStabiliseTemp();
 void InitializeSPI();
 void netv_init_can_driver(unsigned char canAddr, CAN_MODULE CANx);
+unsigned char getAddress();
+unsigned char getBranchAddress();
 
 void delayTime(unsigned int time) //0 à 536 000ms
 {
@@ -213,37 +217,41 @@ void OnMsgBMS(NETV_MESSAGE *msg)
     END_OF_MSG_TYPE
             
     // ********* Deal with GETVALUE requests **********
-    ON_MSG_TYPE_RTR(VUE32_TYPE_GETVALUE)
+    ON_MSG_TYPE(VUE32_TYPE_GETVALUE)
 
             // Maximum Temperature in the resistor array
             ANSWER1(E_ID_BMS_BOARD_TEMP, short, (short)branch0.temperatureMaxResistance.value)
+
+            // temp
+            ANSWER1(0x1E, short, (short)m_state)
+
 
             if ( msg->msg_cmd == E_ID_BMS_CELL_GROUP1)
             {
                 NETV_MESSAGE oCopy = *msg;
                 ANSWER4(E_ID_BMS_CELL_GROUP1, short, CG_ID_BMS_CELLGROUP_VOLT1_TEMP,
-                        short, (short)branch0.deviceTable[1].cellTable[0].tension.value,
-                        short, (short)branch0.deviceTable[1].cellTable[1].tension.value,
-                        short, (short)branch0.deviceTable[1].temperature1.value)
+                        short, (short)branch0.deviceTable[0].cellTable[0].tension.value,
+                        short, (short)branch0.deviceTable[0].cellTable[1].tension.value,
+                        short, (short)branch0.deviceTable[0].temperature1.value)
 
                 *msg = oCopy; // Reset the msg structure to allow proper interpretation
                 ANSWER3(E_ID_BMS_CELL_GROUP1, short, CG_ID_BMS_CELLGROUP_VOLT2,
-                        short, (short)branch0.deviceTable[1].cellTable[0].tension.value,
-                        short, (short)branch0.deviceTable[1].cellTable[1].tension.value)
+                        short, (short)branch0.deviceTable[0].cellTable[2].tension.value,
+                        short, (short)branch0.deviceTable[0].cellTable[3].tension.value)
             }
 
             if ( msg->msg_cmd == E_ID_BMS_CELL_GROUP2)
             {
                 NETV_MESSAGE oCopy = *msg;
-                ANSWER4(E_ID_BMS_CELL_GROUP1, short, CG_ID_BMS_CELLGROUP_VOLT1_TEMP,
-                        short, (short)branch0.deviceTable[2].cellTable[0].tension.value,
-                        short, (short)branch0.deviceTable[2].cellTable[1].tension.value,
-                        short, (short)branch0.deviceTable[2].temperature1.value)
+                ANSWER4(E_ID_BMS_CELL_GROUP2, short, CG_ID_BMS_CELLGROUP_VOLT1_TEMP,
+                        short, (short)branch0.deviceTable[1].cellTable[0].tension.value,
+                        short, (short)branch0.deviceTable[1].cellTable[1].tension.value,
+                        short, (short)branch0.deviceTable[1].temperature1.value)
 
                 *msg = oCopy; // Reset the msg structure to allow proper interpretation
-                ANSWER3(E_ID_BMS_CELL_GROUP1, short, CG_ID_BMS_CELLGROUP_VOLT2,
-                        short, (short)branch0.deviceTable[2].cellTable[2].tension.value,
-                        short, (short)branch0.deviceTable[2].cellTable[3].tension.value)
+                ANSWER3(E_ID_BMS_CELL_GROUP2, short, CG_ID_BMS_CELLGROUP_VOLT2,
+                        short, (short)branch0.deviceTable[1].cellTable[2].tension.value,
+                        short, (short)branch0.deviceTable[1].cellTable[3].tension.value)
             }
     END_OF_MSG_TYPE
 
@@ -425,7 +433,9 @@ int problemDetected()
     }
 
     // Send error state message through CAN network
+    EVERY_X_MS(1000)
     CANTransmetErrorState();
+    END_OF_EVERY
 
     //Si la tension max est de retour à la tension ajusté, on change d'état pour retourner à balance
     if (!verifyTensionMin() && !verifyTemperatureCell()) {
@@ -480,17 +490,20 @@ void InitBMS(void)
 }
 
 void initializePeripheral(void) {
-    //initialiseIO(); //Initialiser les IO
-    //initAddress(); //Initialiser les addresses
+    initialiseIO(); //Initialiser les IO
+    initAddress(); //Initialiser les addresses
     InitializeSPI(); //Initialiser la communication SPI
 
 }
 
 void initAddress(void) {
-    #warning Fix the following two lines (since IO.c is removed) :
-    // bmsAddress.address = getAddress();
-   //  bmsAddress.branchAddress = getBranchAddress();
-    bmsAddress.CANAddress = PORTE ^ 0x3F;
+    // TODO: Uncomment
+    //bmsAddress.address = getAddress();
+    bmsAddress.address = 0x11;
+    //bmsAddress.branchAddress = getBranchAddress();
+    bmsAddress.branchAddress = 0x01;
+    //bmsAddress.CANAddress = PORTE ^ 0x3F;
+    bmsAddress.CANAddress = 0x11;
 }
 
 ROUTING_TABLE *gRoutingTableBMS_0 = NULL;

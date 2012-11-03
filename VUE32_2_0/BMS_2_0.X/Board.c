@@ -90,7 +90,10 @@ unsigned short GetFirmVersion(void)
 // Get our network address (depending of which VUE32 card we are)
 unsigned char GetMyAddr()
 {
-    return (m_unBoardId & 0x000000FF);
+    // Harcoded address for test. Valid values: 0x11 to 0x1C
+    return 0x12;
+    
+    //return (m_unBoardId & 0x000000FF);
 }
 
 /*

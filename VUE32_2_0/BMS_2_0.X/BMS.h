@@ -21,7 +21,7 @@
 #define TENSION_MAX_CELL					3600 			// Tension maximale pour activer le fet ne pas dépasser 4200 Doit être ajusté selon le type de cellule
 #define TENSION_MIN_CELL                    2000
 #define GAP_OVER_MIN_CELL					100			// Gap de tension avec la plus basse tension
-#define TENSION_START_FET					3400		// Tension minimal pour activer le FET
+#define TENSION_START_FET					3300		// Tension minimal pour activer le FET
 #define TENSION_MAX_OPEN_CONTACTOR          3650        // Tension ou les contacteurs ouvrent
 
 #define TEMPERATURE_MAX_CELL                500                     //Temperature maximale des cellules 50.0°C
