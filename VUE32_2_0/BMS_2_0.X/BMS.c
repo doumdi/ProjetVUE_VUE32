@@ -208,10 +208,10 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                 branch0.temperatureMaxResistance.changed = 1; // Flag to notify userspace of the change
             END_OF_ACTION
                     
-            // Set the balancing state of the BMS (on/off)
+            // Set the balancing state of the BMS (on/off), this command also allows us to reset BQs
             unsigned char fBalancing = 0;
             ACTION1(E_ID_BMS_STATE_BALANCING, unsigned char, fBalancing)
-                setState( (fBalancing == 1) ? Balance : Monitor );
+                setState( (fBalancing == 1) ? Balance : InitBQ );
             END_OF_ACTION
                     
     END_OF_MSG_TYPE
@@ -315,11 +315,11 @@ void monitor(void) {
 	    branch0.cellBalancing.changed = 1;
     }
 
-    if (verifyTensionMin() || verifyTemperatureCell())
+    /*if (verifyTensionMin() || verifyTemperatureCell())
     {
         CANTransmetOpenContactor();
         setState(ProblemDetected);
-    }
+    }*/
 
 }
 
