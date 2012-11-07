@@ -28,9 +28,9 @@
 
 #define DEFAULT_FUNCTION_CONFIG 	0x28			// Met le temps de conversion à 4us et le GPAI_REF à VReg50
 #define DEFAULT_IO_CONFIG			0x00			// 
-#define DEFAULT_OVERVOLTAGE 		0x2A			// OverVoltage = 4.1V
+#define DEFAULT_OVERVOLTAGE 		0x24			// OverVoltage = 3,6V
 #define DEFAULT_OVERVOLTAGETIME 	0x0A			// 1000useconde
-#define DEFAULT_UNDERVOLTAGE 		0x14			// underVoltage = 2.7
+#define DEFAULT_UNDERVOLTAGE 		0x14			// underVoltage = 2,0
 #define DEFAULT_UNDERVOLTAGETIME 	0x0A			// 1000useconde
 #define DEFAULT_OVERTEMP 		0x00			// Désactivé pour le moment
 #define DEFAULT_OVERTEMPTIME 		0x00

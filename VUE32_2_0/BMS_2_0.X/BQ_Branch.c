@@ -220,10 +220,11 @@ void updateCellVoltage(Branch *branch, int bufferNB)
         {
                 tmpTemperatureMaxRes = branch->deviceTable[deviceNb].temperature2.value;
         }
-        if(branch->temperatureMaxResistance.value < branch->deviceTable[deviceNb].temperature3.value)
-        {
-                tmpTemperatureMaxRes = branch->deviceTable[deviceNb].temperature3.value;
-        }
+        // TODO: Fix the reading of GPAI for temperture3 (Resistors)
+        //if(branch->temperatureMaxResistance.value < branch->deviceTable[deviceNb].temperature3.value)
+        //{
+        //        tmpTemperatureMaxRes = branch->deviceTable[deviceNb].temperature3.value;
+        //}
     }
 
     if(tmpTemperatureMaxRes != branch->temperatureMaxResistance.value)
