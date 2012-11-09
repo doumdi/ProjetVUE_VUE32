@@ -76,7 +76,7 @@ void InitBoard(void)
  */
 VUE32_ID GetBoardID(void)
 {
-    return (m_unBoardId & 0x000000FF);
+    return (m_unBoardId & 0x000000FF) + 1; // Never use ID #0
 }
 
 /*
@@ -91,7 +91,7 @@ unsigned short GetFirmVersion(void)
 unsigned char GetMyAddr()
 {
     // Harcoded address for test. Valid values: 0x11 to 0x28
-    return 0x10 + 22;
+    return 0x10 + BMS_CAN_ADDRESS;
     
     //return (m_unBoardId & 0x000000FF);
 }
