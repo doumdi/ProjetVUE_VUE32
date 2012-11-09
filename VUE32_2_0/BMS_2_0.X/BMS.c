@@ -170,6 +170,19 @@ void ImplBMS(void)
             break;
     }
 
+    //if ( m_state == ProblemDetected)
+    //{
+    EVERY_X_MS(2000)
+        unsigned char io_ctrl;
+        readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
+        if ( io_ctrl & 0x40 )
+            io_ctrl = (io_ctrl & 0xBF);
+        else
+            io_ctrl = (io_ctrl | 0x40);
+        writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
+    END_OF_EVERY
+    //}
+
     //If the ErrorStateFlag is set
     if(ErrorStateFlag == TRUE)
     {
@@ -223,9 +236,9 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                 else
                 {
                     branch0.deviceTable[0].fMaxTensionForced = 0;
-                    branch0.deviceTable[0].nMaxTensionForced = 0;
+                    branch0.deviceTable[0].nMaxTensionForced = (unsigned int)branch0.tensionMin;
                     branch0.deviceTable[1].fMaxTensionForced = 0;
-                    branch0.deviceTable[1].nMaxTensionForced = 0;
+                    branch0.deviceTable[1].nMaxTensionForced = (unsigned int)branch0.tensionMin;
                 }
                 setState( (fBalancing == 1) ? Balance : InitBQ );
             END_OF_ACTION
@@ -246,11 +259,17 @@ void OnMsgBMS(NETV_MESSAGE *msg)
     ON_MSG_TYPE(VUE32_TYPE_GETVALUE)
 
             // Maximum Temperature in the resistor array
-            ANSWER1(E_ID_BMS_BOARD_TEMP, short, (short)branch0.temperatureMaxResistance.value)
+            ANSWER1(E_ID_BMS_BOARD_TEMP, short, (short)branch0.temperatureMaxResistance.value)                    
 
             // temp
-            ANSWER1(0x1E, short, (short)m_state)
-
+            if (m_state == 3)
+            {
+                ANSWER3(0x1E, short, (short)m_state, short, (short) branch0.deviceTable[0].fMaxTensionForced, unsigned short, (unsigned short)branch0.deviceTable[0].nMaxTensionForced )
+            }
+            else
+            {
+                ANSWER1(0x1E, short, (short)m_state)
+            }
 
             if ( msg->msg_cmd == E_ID_BMS_CELL_GROUP1)
             {
@@ -494,7 +513,7 @@ void openCloseAllIO(void) {
     writeRegister(branch0.id, BROADCAST_ADDRESS, CB_CTRL, 0x1F); //Open all FET
     //toggleLed1();
     //toggleLed2();
-    delayTime(100);
+    delayTime(20000000);
 
     writeRegister(branch0.id, BROADCAST_ADDRESS, IO_CONTROL, 0x00); //Close all LED
     writeRegister(branch0.id, BROADCAST_ADDRESS, CB_CTRL, 0x00); //Close all FET
@@ -516,7 +535,7 @@ void InitBMS(void)
 }
 
 void initializePeripheral(void) {
-    initialiseIO(); //Initialiser les IO
+    //initialiseIO(); //Initialiser les IO
     initAddress(); //Initialiser les addresses
     InitializeSPI(); //Initialiser la communication SPI
 

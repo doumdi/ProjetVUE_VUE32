@@ -141,11 +141,9 @@ void sleepMode(byte branchId, byte device) {
         readRegister(branchId, device, IO_CONTROL, 0x01, &data);
         data |= 0x04;
         writeRegister(branchId, device, IO_CONTROL, data);
-        delayTime(10);
+        delayTime(100000);
 
         readRegister(branchId, device, ALERT_STATUS, 0x01, &data);
-        data |= 0x04;
-        writeRegister(branchId, device, ALERT_STATUS, data);
         data &= 0xFB;
         writeRegister(branchId, device, ALERT_STATUS, data);
         data = 0;
@@ -158,7 +156,7 @@ void wakeUpDevice(byte branchId, byte device) {
     if (device != 0) {
         byte data = 0;
         readRegister(branchId, device, IO_CONTROL, 0x01, &data);
-        data &= 0xF7;
+        data &= 0xFB;
         writeRegister(branchId, device, IO_CONTROL, data);
         delayTime(10);
     }
