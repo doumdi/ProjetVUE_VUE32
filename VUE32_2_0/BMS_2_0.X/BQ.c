@@ -285,13 +285,21 @@ unsigned char triggerFET(byte branchId, Device *device, unsigned int tensionMin)
             device->cellTable[cellNb].balanceActive = 1;
             cb_ctrl = cb_ctrl | (0x01 << cellNb);
 			balActivity++;
-        }//Si la tension est plus grande que le plus petite tension de la branche plus le gap
-        else if (device->cellTable[cellNb].tension.value > (tensionMin + gapOverMinCell) && device->cellTable[cellNb].tension.value > tensionStartFet) {
+        }
+        else if (device->fMaxTensionForced && device->cellTable[cellNb].tension.value > (device->nMaxTensionForced + gapOverMinCell)  && device->cellTable[cellNb].tension.value > tensionStartFet)
+        {
+            //If the FET is not already activated
+            device->cellTable[cellNb].balanceActive = 1;
+            cb_ctrl = cb_ctrl | (0x01 << cellNb);
+			balActivity++;
+        }
+        //Si la tension est plus grande que le plus petite tension de la branche plus le gap
+        else if (!device->fMaxTensionForced && device->cellTable[cellNb].tension.value > (tensionMin + gapOverMinCell) && device->cellTable[cellNb].tension.value > tensionStartFet) {
             device->cellTable[cellNb].balanceActive = 1;
 			balActivity++;
             cb_ctrl = cb_ctrl | (0x01 << cellNb);
         } 
-		else {
+	else {
             device->cellTable[cellNb].balanceActive = 0;
         }
     }

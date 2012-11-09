@@ -285,7 +285,7 @@ unsigned int isCellBleeding(Branch *branch)
 void sleepBranch(Branch *branch)
 {
 	writeRegister(branch->id,BROADCAST_ADDRESS,IO_CONTROL,0x40);
-	unsigned char deviceNb = nbDevice-1;
+	unsigned char deviceNb = 1; //nbDevice-1;
 	for(; deviceNb >= 0; deviceNb--)
 	{
 		delayTime(250);

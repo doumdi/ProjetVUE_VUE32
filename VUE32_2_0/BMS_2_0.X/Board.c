@@ -91,7 +91,7 @@ unsigned short GetFirmVersion(void)
 unsigned char GetMyAddr()
 {
     // Harcoded address for test. Valid values: 0x11 to 0x28
-    return 0x10 + 10;
+    return 0x10 + 22;
     
     //return (m_unBoardId & 0x000000FF);
 }

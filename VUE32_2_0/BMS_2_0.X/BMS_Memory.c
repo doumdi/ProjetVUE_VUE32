@@ -6,7 +6,7 @@
 
 void loadDataFromMemory()
 {
-    unsigned char changed = 0;
+    //unsigned char changed = 0;
     
 /*
     tensionMaxCell = (*(int *)(NVM_PROGRAM_PAGE + 0x000));

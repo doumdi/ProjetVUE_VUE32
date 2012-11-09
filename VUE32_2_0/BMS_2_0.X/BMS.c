@@ -20,7 +20,6 @@ HDW_MAPPING gBMS_Ress[] =
     {E_ID_BMS_BOARD_TEMP, 2, Sensor},
     {E_ID_BMS_CELL_GROUP1, 7, Sensor},
     {E_ID_BMS_CELL_GROUP2, 7, Sensor},
-    {E_ID_BMS_STATE, 2, Sensor}
 };
 
 #define NB_ROUND_BEFORE_SEND 2
@@ -123,6 +122,7 @@ void ImplBMS(void)
         case Balance:
         {
             EVERY_X_MS(500)
+                LED1 ^= 1;
                 balance();
             END_OF_EVERY
             break;
@@ -210,13 +210,34 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             END_OF_ACTION
                     
             // Set the balancing state of the BMS (on/off), this command also allows us to reset BQs
-            unsigned char fBalancing = 0;
-            ACTION1(E_ID_BMS_STATE_BALANCING, unsigned char, fBalancing)
+            unsigned char fBalancing = 0, fForced = 0;
+            unsigned short sForcedTension;
+            ACTION3(E_ID_BMS_STATE_BALANCING, unsigned char, fBalancing, unsigned char, fForced, unsigned short, sForcedTension)
+                if (fForced == 1)
+                {
+                    branch0.deviceTable[0].fMaxTensionForced = 1;
+                    branch0.deviceTable[0].nMaxTensionForced = (unsigned int)sForcedTension;
+                    branch0.deviceTable[1].fMaxTensionForced = 1;
+                    branch0.deviceTable[1].nMaxTensionForced = (unsigned int)sForcedTension;
+                }
+                else
+                {
+                    branch0.deviceTable[0].fMaxTensionForced = 0;
+                    branch0.deviceTable[0].nMaxTensionForced = 0;
+                    branch0.deviceTable[1].fMaxTensionForced = 0;
+                    branch0.deviceTable[1].nMaxTensionForced = 0;
+                }
                 setState( (fBalancing == 1) ? Balance : InitBQ );
             END_OF_ACTION
 
-            ACTION1(E_ID_BMS_STATE, unsigned short, m_state)
-                setState(m_state);
+            // temp
+            unsigned short usTempState;
+            ACTION1(0x1E, unsigned short, usTempState)
+                m_state = usTempState;
+                branch0.deviceTable[0].fMaxTensionForced = 0;
+                branch0.deviceTable[0].nMaxTensionForced = 0;
+                branch0.deviceTable[1].fMaxTensionForced = 0;
+                branch0.deviceTable[1].nMaxTensionForced = 0;
             END_OF_ACTION
                     
     END_OF_MSG_TYPE
@@ -228,7 +249,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             ANSWER1(E_ID_BMS_BOARD_TEMP, short, (short)branch0.temperatureMaxResistance.value)
 
             // temp
-            ANSWER1(E_ID_BMS_STATE, short, (short)m_state)
+            ANSWER1(0x1E, short, (short)m_state)
 
 
             if ( msg->msg_cmd == E_ID_BMS_CELL_GROUP1)

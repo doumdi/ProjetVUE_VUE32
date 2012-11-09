@@ -50,7 +50,8 @@ typedef struct{
 	byte cov_fault;			//Cell Over Voltage
 	byte cun_fault;			//Cell Under Voltage
 	byte address;			//address
-        byte test;			//test
+        byte fMaxTensionForced;			//test
+        unsigned int nMaxTensionForced;
 	Cell cellTable[NB_CELL_BY_DEVICE];	//Cellules data
 	intM temperature1;
 	intM temperature2;
