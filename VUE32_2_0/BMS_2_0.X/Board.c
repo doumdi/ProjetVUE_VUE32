@@ -17,7 +17,7 @@
 
 #define FIRMWARE_VERSION 0x0001
 
-unsigned int m_unBoardId = 10;
+unsigned int m_unBoardId = 13;
 
 /*
  * Initialize the board

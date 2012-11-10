@@ -315,13 +315,14 @@ void OnMsgBMS(NETV_MESSAGE *msg)
 //CAN transmission functions
 void CANTransmetErrorState()
 {
+    // TODO: A corrigwer
     NETV_MESSAGE msg;
 
     msg.msg_priority = NETV_PRIORITY_MEDIUM;
     msg.msg_type = VUE32_TYPE_GETVALUE;
     msg.msg_cmd = E_ID_BMS_STATE_ERROR;
     msg.msg_dest = ADDR_CAN_ODB;
-    msg.msg_source = bmsAddress.CANAddress;
+    msg.msg_source = GetMyAddr();
     msg.msg_comm_iface = NETV_COMM_IFACE_CAN1;
     msg.msg_remote = 0;
     msg.msg_data_length = 1;    
