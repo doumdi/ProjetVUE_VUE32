@@ -264,11 +264,11 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             // temp
             if (m_state == 3)
             {
-                ANSWER3(0x1E, short, (short)m_state, short, (short) branch0.deviceTable[0].fMaxTensionForced, unsigned short, (unsigned short)branch0.deviceTable[0].nMaxTensionForced )
+                ANSWER3(E_ID_BMS_STATE_READONLY, short, (short)m_state, short, (short) branch0.deviceTable[0].fMaxTensionForced, unsigned short, (unsigned short)branch0.deviceTable[0].nMaxTensionForced )
             }
             else
             {
-                ANSWER1(0x1E, short, (short)m_state)
+                ANSWER1(E_ID_BMS_STATE_READONLY, short, (short)m_state)
             }
 
             if ( msg->msg_cmd == E_ID_BMS_CELL_GROUP1)
