@@ -8,14 +8,10 @@
 
 
 # Include project Makefile
-ifeq "${IGNORE_LOCAL}" "TRUE"
-# do not include local makefile. User is passing all local related variables already
-else
 include Makefile
 # Include makefile containing local settings
 ifeq "$(wildcard nbproject/Makefile-local-default.mk)" "nbproject/Makefile-local-default.mk"
 include nbproject/Makefile-local-default.mk
-endif
 endif
 
 # Environment
@@ -45,11 +41,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/memory_map.o ${OBJECTDIR}/io.o ${OBJECTDIR}/_ext/1360937237/Exception.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/BMS_Impl.o ${OBJECTDIR}/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o.d ${OBJECTDIR}/_ext/1360937237/communication.o.d ${OBJECTDIR}/Board.o.d ${OBJECTDIR}/Spi.o.d ${OBJECTDIR}/BQ_Com.o.d ${OBJECTDIR}/BQ_Branch.o.d ${OBJECTDIR}/BQ.o.d ${OBJECTDIR}/_ext/1360937237/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/memory_map.o.d ${OBJECTDIR}/io.o.d ${OBJECTDIR}/_ext/1360937237/Exception.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o.d ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d ${OBJECTDIR}/BMS.o.d ${OBJECTDIR}/BMS_Memory.o.d ${OBJECTDIR}/BMS_Impl.o.d ${OBJECTDIR}/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/memory_map.o ${OBJECTDIR}/_ext/1360937237/Exception.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/BMS_Impl.o ${OBJECTDIR}/main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o.d ${OBJECTDIR}/_ext/1360937237/communication.o.d ${OBJECTDIR}/Board.o.d ${OBJECTDIR}/Spi.o.d ${OBJECTDIR}/BQ_Com.o.d ${OBJECTDIR}/BQ_Branch.o.d ${OBJECTDIR}/BQ.o.d ${OBJECTDIR}/_ext/1360937237/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/memory_map.o.d ${OBJECTDIR}/_ext/1360937237/Exception.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o.d ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o.d ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o.d ${OBJECTDIR}/BMS.o.d ${OBJECTDIR}/BMS_Memory.o.d ${OBJECTDIR}/BMS_Impl.o.d ${OBJECTDIR}/main.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/memory_map.o ${OBJECTDIR}/io.o ${OBJECTDIR}/_ext/1360937237/Exception.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/BMS_Impl.o ${OBJECTDIR}/main.o
+OBJECTFILES=${OBJECTDIR}/_ext/1360937237/vue32_timers.o ${OBJECTDIR}/_ext/1360937237/communication.o ${OBJECTDIR}/Board.o ${OBJECTDIR}/Spi.o ${OBJECTDIR}/BQ_Com.o ${OBJECTDIR}/BQ_Branch.o ${OBJECTDIR}/BQ.o ${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/memory_map.o ${OBJECTDIR}/_ext/1360937237/Exception.o ${OBJECTDIR}/_ext/1360937237/NETV32_Common.o ${OBJECTDIR}/_ext/1360937237/NETV32_CANDriver.o ${OBJECTDIR}/_ext/1360937237/NETV32_Shared.o ${OBJECTDIR}/_ext/1360937237/VUE32_Utils.o ${OBJECTDIR}/BMS.o ${OBJECTDIR}/BMS_Memory.o ${OBJECTDIR}/BMS_Impl.o ${OBJECTDIR}/main.o
 
 
 CFLAGS=
@@ -129,11 +125,6 @@ ${OBJECTDIR}/_ext/1360937237/memory_map.o: ../src/memory_map.c  nbproject/Makefi
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/memory_map.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -D__32MX575F512H__ -Wall -MMD -MF "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" -o ${OBJECTDIR}/_ext/1360937237/memory_map.o ../src/memory_map.c  
-	
-${OBJECTDIR}/io.o: io.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/io.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/io.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -D__32MX575F512H__ -Wall -MMD -MF "${OBJECTDIR}/io.o.d" -o ${OBJECTDIR}/io.o io.c  
 	
 ${OBJECTDIR}/_ext/1360937237/Exception.o: ../src/Exception.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
@@ -226,11 +217,6 @@ ${OBJECTDIR}/_ext/1360937237/memory_map.o: ../src/memory_map.c  nbproject/Makefi
 	@${RM} ${OBJECTDIR}/_ext/1360937237/memory_map.o.d 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -D__32MX575F512H__ -Wall -MMD -MF "${OBJECTDIR}/_ext/1360937237/memory_map.o.d" -o ${OBJECTDIR}/_ext/1360937237/memory_map.o ../src/memory_map.c  
 	
-${OBJECTDIR}/io.o: io.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/io.o.d 
-	@${FIXDEPS} "${OBJECTDIR}/io.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c ${MP_CC} $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION) -D__32MX575F512H__ -Wall -MMD -MF "${OBJECTDIR}/io.o.d" -o ${OBJECTDIR}/io.o io.c  
-	
 ${OBJECTDIR}/_ext/1360937237/Exception.o: ../src/Exception.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/Exception.o.d 
@@ -281,9 +267,9 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}       -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,-Map="mapfile.txt",--report-mem,--cref,--warn-section-align 
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}       -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__ICD2RAM=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,-Map="mapfile.txt",--report-mem,--cref,--warn-section-align 
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/BMS_2_0.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 

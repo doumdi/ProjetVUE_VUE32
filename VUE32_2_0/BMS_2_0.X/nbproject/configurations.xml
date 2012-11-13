@@ -15,7 +15,6 @@
         <itemPath>BQ.h</itemPath>
         <itemPath>../src/memory_map.h</itemPath>
         <itemPath>Board.h</itemPath>
-        <itemPath>io.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
         <itemPath>../src/bsp.h</itemPath>
@@ -50,7 +49,6 @@
         <itemPath>BQ.c</itemPath>
         <itemPath>../src/interrupts.c</itemPath>
         <itemPath>../src/memory_map.c</itemPath>
-        <itemPath>io.c</itemPath>
         <itemPath>../src/Exception.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="NETV32" projectFiles="true">
