@@ -337,7 +337,7 @@ void CANTransmetOpenContactor(void) {
 
     msg.msg_priority = NETV_PRIORITY_HIGHEST;
     msg.msg_type = NETV_TYPE_EMERGENCY;
-    msg.msg_cmd = E_ID_BMS_OPEN_CONTACT;
+    msg.msg_cmd = E_ID_MAIN_CONTACTOR;
     msg.msg_dest = ADDR_CAN_ODB;
     msg.msg_source = bmsAddress.CANAddress;
     msg.msg_comm_iface = NETV_COMM_IFACE_CAN1;
@@ -345,6 +345,10 @@ void CANTransmetOpenContactor(void) {
     msg.msg_data_length = 0;
     msg.msg_data[0] = m_state;
 
+    netv_send_message(&msg);
+
+    msg.msg_type = VUE32_TYPE_SETVALUE;
+    msg.msg_dest = 0x03;
     netv_send_message(&msg);
 }
 
