@@ -32,6 +32,7 @@ void InitBoard(void)
     SYSTEMConfig(GetSystemClock(), SYS_CFG_PB_BUS);
     SYSTEMConfigPB(GetSystemClock());
     INTEnableSystemMultiVectoredInt();
+    asm("di");
 
     //Disable JTAG port
     DDPCONbits.JTAGEN = 0;

@@ -53,7 +53,7 @@ char CrcTable[] = {
 0xE6, 0xE1, 0xE8, 0xEF, 0xFA, 0xFD, 0xF4, 0xF3
 };
 
-
+void delayTime(unsigned int);
 
 //------------------------------------------------------------------------------
 byte calculCRC(byte buffer[], int length)
@@ -91,7 +91,6 @@ void writeRegister(byte cs, byte device, byte reg, byte data)
 
 	toggleSPI_CS();
 
-        while(SpiChnTxBuffEmpty(2)!= 1);
         sendByteSPI(buffer[2]);
 	getByteSPI();
 	sendByteSPI(buffer[1]);
@@ -100,6 +99,7 @@ void writeRegister(byte cs, byte device, byte reg, byte data)
 	getByteSPI();
 	sendByteSPI(crc);
 	getByteSPI();
+        
 	toggleSPI_CS();
 }
 

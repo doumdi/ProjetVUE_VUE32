@@ -117,6 +117,7 @@ void ImplBMS(void)
                     LED1 ^= 1;
                     monitor();
             END_OF_EVERY
+            setState(InitSleep);
             break;
         }
         case Balance:
@@ -135,6 +136,7 @@ void ImplBMS(void)
         }
         case Sleep:
         {
+            setState(WakeUp);
             break;
         }
         case WakeUp:

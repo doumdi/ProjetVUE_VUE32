@@ -288,7 +288,7 @@ void sleepBranch(Branch *branch)
 	unsigned char deviceNb = 1; //nbDevice-1;
 	for(; deviceNb >= 0; deviceNb--)
 	{
-		delayTime(40000000);
+		delayTime(400);
 		writeRegister(branch->id,branch->deviceTable[deviceNb].address,IO_CONTROL,0x00);
 		sleepMode(branch->id,branch->deviceTable[deviceNb].address);
 	}
@@ -297,6 +297,8 @@ void sleepBranch(Branch *branch)
 //------------------------------------------------------------------------------
 void wakeUpBranch(Branch *branch)
 {
+
+    //TODO
 	unsigned char deviceNb = 0;
 	for(deviceNb=0; deviceNb < nbDevice; deviceNb++)
 	{
