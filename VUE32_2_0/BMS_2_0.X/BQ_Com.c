@@ -115,6 +115,8 @@ char readRegister(byte cs, byte device, byte startReg, byte length, byte *data)
 		byte crcReceive = {0};
 		byte crcCalculated = {0};
 		int j = 0;
+                int i = 0;
+                byte k = 0;
 		buffer[length+2] = 0x00 | (device << 1);
 		buffer[length+1] = startReg;
 		buffer[length] = length;
@@ -130,12 +132,20 @@ char readRegister(byte cs, byte device, byte startReg, byte length, byte *data)
 		getByteSPI();
 		sendByteSPI( buffer[length]);
 		getByteSPI();
+
+                for(i=0;i<BUFFER_LENGTH;i++)
+                {
+                    buffer[i] = k;
+                }
+
+                for(j = 0; j < length; j++)
+                {
+                    sendByteSPI( 0xFF);
+                    buffer[length-j-1] = getByteSPI();
+                    data[length-j-1] = buffer[length-j-1];
+                }
+
 		
-		for(; j < length; j++){
-			sendByteSPI( 0xFF);
-			buffer[length-j-1] = getByteSPI();
-			data[length-j-1] = buffer[length-j-1];
-		}
 		sendByteSPI(0xFF);
 		crcReceive = getByteSPI();
 		toggleSPI_CS();	//SPI_CS = 0; Non blocant

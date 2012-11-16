@@ -140,22 +140,20 @@ void sleepMode(byte branchId, byte device) {
         byte data = 0;
         readRegister(branchId, device, IO_CONTROL, 0x01, &data);
         data |= 0x04; // Toggle Sleep IO Control register to 1
-        writeRegister(branchId, device, IO_CONTROL, data);
+        //writeRegister(branchId, device, IO_CONTROL, data);
 
         // Saving TS1 and TS2 states
-        oldTSstates = (data &= 0x03);
+        oldTSstates = (data & 0x03);
 
         // Setting TS1 and TS2 states to 0, to minimise current draw in sleep mode
         data &= 0xFC;
-        writeRegister(branchId, device, IO_CONTROL, data);
+        writeRegister(branchId, device, IO_CONTROL, 0x04);
 
-        delayTime(100000);
-
-        readRegister(branchId, device, ALERT_STATUS, 0x01, &data);
+        /*readRegister(branchId, device, ALERT_STATUS, 0x01, &data);
+        data |= 0x04; // Toggle Sleep Alert status register to 1
+        writeRegister(branchId, device, ALERT_STATUS, data);
         data &= 0xFB; // Toggle Sleep Alert status register to 0
-        writeRegister(branchId, device, ALERT_STATUS, data);
-        data &= 0xFF; // Toggle Sleep Alert status register to 1
-        writeRegister(branchId, device, ALERT_STATUS, data);
+        writeRegister(branchId, device, ALERT_STATUS, data);*/
     }
 }
 

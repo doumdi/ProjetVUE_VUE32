@@ -92,7 +92,8 @@ byte assignAddress(Branch *branch)
 		  writeRegister(branch->id,branch->deviceTable[n-1].address,IO_CONTROL,0x00);
           //address next device or finish device detection
         	if (n==NB_DEVICE_BY_BRANCH)
-            	return n;
+            	//nbDevice = nbDeviceFound;
+                    return n;
 			//else
 				//signalError(ERROR_BMS_NOT_FIND_ALL_DEVICE);
         }
@@ -285,7 +286,7 @@ unsigned int isCellBleeding(Branch *branch)
 void sleepBranch(Branch *branch)
 {
 	writeRegister(branch->id,BROADCAST_ADDRESS,IO_CONTROL,0x40);
-	unsigned char deviceNb = 1; //nbDevice-1;
+        int deviceNb = 1; //nbDevice-1;
 	for(; deviceNb >= 0; deviceNb--)
 	{
 		delayTime(400);

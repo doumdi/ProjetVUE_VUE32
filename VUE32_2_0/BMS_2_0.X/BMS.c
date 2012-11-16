@@ -53,6 +53,7 @@ void InitializeSPI();
 void netv_init_can_driver(unsigned char canAddr, CAN_MODULE CANx);
 unsigned char getAddress();
 unsigned char getBranchAddress();
+void testFct();
 
 void delayTime(unsigned int time) //0 à 536 000ms
 {
@@ -103,7 +104,8 @@ void ImplBMS(void)
             newLongPolling.ucResourceId = E_ID_BMS_BOARD_TEMP;
             newLongPolling.unDelay = 100;
             newLongPolling.ucMsgType = VUE32_TYPE_SETVALUE;*/
-            
+
+            //testFct();
             setState(Monitor);
             
             //Enables the core to handle any pending interrupt requests
@@ -117,7 +119,9 @@ void ImplBMS(void)
                     LED1 ^= 1;
                     monitor();
             END_OF_EVERY
-            setState(InitSleep);
+            /*static char flagTest = 0;
+            if ( !flagTest) setState(InitSleep);
+            flagTest = 1;*/
             break;
         }
         case Balance:
@@ -125,6 +129,7 @@ void ImplBMS(void)
             EVERY_X_MS(500)
                 LED1 ^= 1;
                 balance();
+                //testFct();
             END_OF_EVERY
             break;
         }
@@ -165,24 +170,36 @@ void ImplBMS(void)
         }
         case Test:
         {
-            openCloseAllIO();
+            //openCloseAllIO();
+            //testFct();
+            //setState(Monitor);
             break;
         }
         default:
             break;
     }
 
-    //if ( m_state == ProblemDetected)
-    //{
     EVERY_X_MS(2000)
         unsigned char io_ctrl;
         readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
         if ( io_ctrl & 0x40 )
+        {
             io_ctrl = (io_ctrl & 0xBF);
+            //io_ctrl = (io_ctrl | 0x04);
+            //io_ctrl = (io_ctrl & 0xBB);
+        }
         else
+        {
+            //io_ctrl = (io_ctrl & 0xFB);
             io_ctrl = (io_ctrl | 0x40);
+            //io_ctrl = (io_ctrl | 0x44);
+        }
+
         writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
     END_OF_EVERY
+
+    //if ( m_state == ProblemDetected)
+    //{
     //}
 
     //If the ErrorStateFlag is set
@@ -197,6 +214,26 @@ void ImplBMS(void)
     }
 
     bufferMoy++;
+}
+
+void testFct()
+{
+        unsigned char io_ctrl;
+        readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
+        /*if ( io_ctrl & 0x40 )
+        {
+            //io_ctrl = (io_ctrl & 0xBF);
+            //io_ctrl = (io_ctrl | 0x04);
+            //io_ctrl = (io_ctrl & 0xBB);
+        }
+        else
+        {*/
+            //io_ctrl = (io_ctrl & 0xFB);
+            io_ctrl = (io_ctrl | 0x04);
+            //io_ctrl = (io_ctrl | 0x44);
+        //}
+
+        writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
 }
 
 /*
