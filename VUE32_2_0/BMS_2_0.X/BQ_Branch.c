@@ -124,7 +124,8 @@ void setInitialConfig(Branch *branch)
 //Mise à zero des faults
 void resetBranchFault(Branch *branch)
 {
-	resetFault(branch->id,BROADCAST_ADDRESS);
+	resetFault(branch->id,branch0.deviceTable[0].address);
+        resetFault(branch->id,branch0.deviceTable[1].address);
 }
 
 //------------------------------------------------------------------------------
@@ -307,7 +308,6 @@ void wakeUpBranch(Branch *branch)
 		wakeUpDevice(branch->id, branch->deviceTable[deviceNb].address);
 		writeRegister(branch->id,branch->deviceTable[deviceNb].address,IO_CONTROL,0x40);
 	}
-        delayTime(40000000);
 	writeRegister(branch->id,BROADCAST_ADDRESS,IO_CONTROL,0x00);
 }
 

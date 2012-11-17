@@ -30,6 +30,7 @@ unsigned int statusCmp;
 unsigned int bufferMoy;
 //enum eStates m_state, lastState;
 int sendData;	//Compteur pour le delay pour envoyer sur le CAN
+unsigned int BQLEDFlag;
 
 // From CANFunctions.c
 extern BMSAddress bmsAddress;
@@ -54,6 +55,7 @@ void netv_init_can_driver(unsigned char canAddr, CAN_MODULE CANx);
 unsigned char getAddress();
 unsigned char getBranchAddress();
 void testFct();
+void flashBQLEDs();
 
 void delayTime(unsigned int time) //0 à 536 000ms
 {
@@ -106,7 +108,18 @@ void ImplBMS(void)
             newLongPolling.ucMsgType = VUE32_TYPE_SETVALUE;*/
 
             //testFct();
-            setState(Monitor);
+            
+            static char flag;
+            
+            if(!flag)
+            {
+                setState(Test);
+                flag = 1;
+            }
+            else
+            {
+                setState(Monitor);
+            }
             
             //Enables the core to handle any pending interrupt requests
             asm volatile ("ei");
@@ -119,9 +132,7 @@ void ImplBMS(void)
                     LED1 ^= 1;
                     monitor();
             END_OF_EVERY
-            /*static char flagTest = 0;
-            if ( !flagTest) setState(InitSleep);
-            flagTest = 1;*/
+
             break;
         }
         case Balance:
@@ -171,8 +182,8 @@ void ImplBMS(void)
         case Test:
         {
             //openCloseAllIO();
-            //testFct();
-            //setState(Monitor);
+            testFct();
+            setState(WakeUp);
             break;
         }
         default:
@@ -180,22 +191,7 @@ void ImplBMS(void)
     }
 
     EVERY_X_MS(2000)
-        unsigned char io_ctrl;
-        readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
-        if ( io_ctrl & 0x40 )
-        {
-            io_ctrl = (io_ctrl & 0xBF);
-            //io_ctrl = (io_ctrl | 0x04);
-            //io_ctrl = (io_ctrl & 0xBB);
-        }
-        else
-        {
-            //io_ctrl = (io_ctrl & 0xFB);
-            io_ctrl = (io_ctrl | 0x40);
-            //io_ctrl = (io_ctrl | 0x44);
-        }
-
-        writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
+        flashBQLEDs();
     END_OF_EVERY
 
     //if ( m_state == ProblemDetected)
@@ -214,6 +210,24 @@ void ImplBMS(void)
     }
 
     bufferMoy++;
+}
+
+void flashBQLEDs()
+{
+    unsigned char io_ctrl;
+    BQLEDFlag ^= 1;
+    readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
+    if (BQLEDFlag)
+    {
+        io_ctrl = (io_ctrl & 0xBF);
+    }
+    else
+    {
+        io_ctrl = (io_ctrl | 0x40);
+    }
+
+    writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
+    
 }
 
 void testFct()
