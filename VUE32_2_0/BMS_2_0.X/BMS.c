@@ -106,7 +106,7 @@ void ImplBMS(void)
             newLongPolling.ucResourceId = E_ID_BMS_BOARD_TEMP;
             newLongPolling.unDelay = 100;
             newLongPolling.ucMsgType = VUE32_TYPE_SETVALUE;*/
-
+            
             //testFct();
             
             static char flag;
@@ -118,7 +118,7 @@ void ImplBMS(void)
             }
             else
             {
-                setState(Monitor);
+            setState(Monitor);
             }
             
             //Enables the core to handle any pending interrupt requests
@@ -132,7 +132,6 @@ void ImplBMS(void)
                     LED1 ^= 1;
                     monitor();
             END_OF_EVERY
-
             break;
         }
         case Balance:
@@ -152,7 +151,6 @@ void ImplBMS(void)
         }
         case Sleep:
         {
-            setState(WakeUp);
             break;
         }
         case WakeUp:
@@ -296,9 +294,17 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                 setState( (fBalancing == 1) ? Balance : InitBQ );
             END_OF_ACTION
 
-            // temp
+            // temp (delete eventually, with Julien's permission)
             unsigned short usTempState;
             ACTION1(0x1E, unsigned short, usTempState)
+                m_state = usTempState;
+                branch0.deviceTable[0].fMaxTensionForced = 0;
+                branch0.deviceTable[0].nMaxTensionForced = 0;
+                branch0.deviceTable[1].fMaxTensionForced = 0;
+                branch0.deviceTable[1].nMaxTensionForced = 0;
+            END_OF_ACTION
+
+            ACTION1(E_ID_BMS_STATE_READONLY, unsigned short, usTempState)
                 m_state = usTempState;
                 branch0.deviceTable[0].fMaxTensionForced = 0;
                 branch0.deviceTable[0].nMaxTensionForced = 0;
@@ -314,7 +320,7 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             // Maximum Temperature in the resistor array
             ANSWER1(E_ID_BMS_BOARD_TEMP, short, (short)branch0.temperatureMaxResistance.value)                    
 
-            // temp
+            // State of the BMS
             if (m_state == 3)
             {
                 ANSWER3(E_ID_BMS_STATE_READONLY, short, (short)m_state, short, (short) branch0.deviceTable[0].fMaxTensionForced, unsigned short, (unsigned short)branch0.deviceTable[0].nMaxTensionForced )
@@ -322,6 +328,16 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             else
             {
                 ANSWER1(E_ID_BMS_STATE_READONLY, short, (short)m_state)
+            }
+
+            // temp (delete eventually, with Julien's permission)
+            if (m_state == 3)
+            {
+                ANSWER3(0x1e, short, (short)m_state, short, (short) branch0.deviceTable[0].fMaxTensionForced, unsigned short, (unsigned short)branch0.deviceTable[0].nMaxTensionForced )
+            }
+            else
+            {
+                ANSWER1(0x1e, short, (short)m_state)
             }
 
             if ( msg->msg_cmd == E_ID_BMS_CELL_GROUP1)

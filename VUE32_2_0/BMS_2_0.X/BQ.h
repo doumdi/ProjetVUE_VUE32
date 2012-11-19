@@ -59,6 +59,5 @@ unsigned char  triggerFET(byte branchId, Device *device, unsigned int tensionMin
 //Met à jour les données concernant les fets pour savoir s'il bleed
 void updateFetStatus(byte branchId, Device *device);
 
-char oldTSstates;
 
 #endif //DEVICE_H
