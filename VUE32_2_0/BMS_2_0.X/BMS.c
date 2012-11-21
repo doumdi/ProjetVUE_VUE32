@@ -30,7 +30,6 @@ unsigned int statusCmp;
 unsigned int bufferMoy;
 //enum eStates m_state, lastState;
 int sendData;	//Compteur pour le delay pour envoyer sur le CAN
-unsigned int BQLEDFlag;
 
 // From CANFunctions.c
 extern BMSAddress bmsAddress;
@@ -54,8 +53,6 @@ void InitializeSPI();
 void netv_init_can_driver(unsigned char canAddr, CAN_MODULE CANx);
 unsigned char getAddress();
 unsigned char getBranchAddress();
-void testFct();
-void flashBQLEDs();
 
 void delayTime(unsigned int time) //0 à 536 000ms
 {
@@ -107,22 +104,21 @@ void ImplBMS(void)
             newLongPolling.unDelay = 100;
             newLongPolling.ucMsgType = VUE32_TYPE_SETVALUE;*/
             
-            //testFct();
-            
-            static char flag;
-            
-            if(!flag)
-            {
-                setState(Test);
-                flag = 1;
-            }
-            else
-            {
             setState(Monitor);
-            }
             
             //Enables the core to handle any pending interrupt requests
             asm volatile ("ei");
+
+            // Everything is ok so light the yellow LEDS for 1 sec
+            unsigned char io_ctrl;
+            readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
+            io_ctrl = (io_ctrl | 0x40);
+            writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
+
+            unsigned int unSmallDelay = uiTimeStamp + 1000;
+            while ( unSmallDelay > uiTimeStamp);
+            io_ctrl = (io_ctrl & 0xBF);
+            writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
 
             break;
         }
@@ -139,7 +135,6 @@ void ImplBMS(void)
             EVERY_X_MS(500)
                 LED1 ^= 1;
                 balance();
-                //testFct();
             END_OF_EVERY
             break;
         }
@@ -157,6 +152,10 @@ void ImplBMS(void)
         {
             wakeUpBranch(&branch0); //Réinitialise les BQ après le mode sleep
             setState(InitBQ);
+            break;
+        }
+        case Sieste:
+        {
             break;
         }
         case WaitStabiliseTension:
@@ -179,22 +178,25 @@ void ImplBMS(void)
         }
         case Test:
         {
-            //openCloseAllIO();
-            testFct();
-            setState(WakeUp);
+            openCloseAllIO();
             break;
         }
         default:
             break;
     }
 
+    if ( m_state == ProblemDetected)
+    {
     EVERY_X_MS(2000)
-        flashBQLEDs();
+        unsigned char io_ctrl;
+        readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
+        if ( io_ctrl & 0x40 )
+            io_ctrl = (io_ctrl & 0xBF);
+        else
+            io_ctrl = (io_ctrl | 0x40);
+        writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
     END_OF_EVERY
-
-    //if ( m_state == ProblemDetected)
-    //{
-    //}
+    }
 
     //If the ErrorStateFlag is set
     if(ErrorStateFlag == TRUE)
@@ -208,44 +210,6 @@ void ImplBMS(void)
     }
 
     bufferMoy++;
-}
-
-void flashBQLEDs()
-{
-    unsigned char io_ctrl;
-    BQLEDFlag ^= 1;
-    readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
-    if (BQLEDFlag)
-    {
-        io_ctrl = (io_ctrl & 0xBF);
-    }
-    else
-    {
-        io_ctrl = (io_ctrl | 0x40);
-    }
-
-    writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
-    
-}
-
-void testFct()
-{
-        unsigned char io_ctrl;
-        readRegister(branch0.id,branch0.deviceTable[0].address,IO_CONTROL,1,&io_ctrl);
-        /*if ( io_ctrl & 0x40 )
-        {
-            //io_ctrl = (io_ctrl & 0xBF);
-            //io_ctrl = (io_ctrl | 0x04);
-            //io_ctrl = (io_ctrl & 0xBB);
-        }
-        else
-        {*/
-            //io_ctrl = (io_ctrl & 0xFB);
-            io_ctrl = (io_ctrl | 0x04);
-            //io_ctrl = (io_ctrl | 0x44);
-        //}
-
-        writeRegister(branch0.id,BROADCAST_ADDRESS,IO_CONTROL,io_ctrl);
 }
 
 /*
@@ -303,14 +267,6 @@ void OnMsgBMS(NETV_MESSAGE *msg)
                 branch0.deviceTable[1].fMaxTensionForced = 0;
                 branch0.deviceTable[1].nMaxTensionForced = 0;
             END_OF_ACTION
-
-            ACTION1(E_ID_BMS_STATE_READONLY, unsigned short, usTempState)
-                m_state = usTempState;
-                branch0.deviceTable[0].fMaxTensionForced = 0;
-                branch0.deviceTable[0].nMaxTensionForced = 0;
-                branch0.deviceTable[1].fMaxTensionForced = 0;
-                branch0.deviceTable[1].nMaxTensionForced = 0;
-            END_OF_ACTION
                     
     END_OF_MSG_TYPE
             
@@ -328,16 +284,6 @@ void OnMsgBMS(NETV_MESSAGE *msg)
             else
             {
                 ANSWER1(E_ID_BMS_STATE_READONLY, short, (short)m_state)
-            }
-
-            // temp (delete eventually, with Julien's permission)
-            if (m_state == 3)
-            {
-                ANSWER3(0x1e, short, (short)m_state, short, (short) branch0.deviceTable[0].fMaxTensionForced, unsigned short, (unsigned short)branch0.deviceTable[0].nMaxTensionForced )
-            }
-            else
-            {
-                ANSWER1(0x1e, short, (short)m_state)
             }
 
             if ( msg->msg_cmd == E_ID_BMS_CELL_GROUP1)

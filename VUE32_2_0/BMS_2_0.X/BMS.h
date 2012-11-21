@@ -91,7 +91,7 @@ BMSAddress bmsAddress;
 
 //États possible du BMS
 /**	InitSleep=0, Sleep=1, Balance=2, Monitor=3, InitBQ=4 InitPeripheral=5, Test=6, WakeUp=7, WaitStabilise=8 WaitStabiliseTemp=9**/
-enum eStates{InitBQ,InitSleep,Sleep,Balance,Monitor,InitPeripheral,Test,WakeUp,WaitStabiliseTension,WaitStabiliseTemp,ProblemDetected};
+enum eStates{InitBQ,Sieste,InitSleep,Balance,Monitor,InitPeripheral,Test,WakeUp,WaitStabiliseTension,WaitStabiliseTemp,ProblemDetected,Sleep};
 //extern enum eStates m_state, lastState;
 
 enum eStates m_state, lastState;
