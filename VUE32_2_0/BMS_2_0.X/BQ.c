@@ -143,7 +143,7 @@ void sleepMode(byte branchId, byte device) {
         //writeRegister(branchId, device, IO_CONTROL, data);
 
         // Saving TS1 and TS2 states
-        oldTSstates = (data & 0x03);
+        //oldTSstates = (data & 0x03);
 
         // Setting TS1 and TS2 states to 0, to minimise current draw in sleep mode
         data &= 0xFC;
@@ -165,7 +165,7 @@ void wakeUpDevice(byte branchId, byte device) {
 
         readRegister(branchId, device, IO_CONTROL, 0x01, &data);
         data &= 0xFB;// Setting the Sleep bit of IO_CONTROL register to 0
-        data |= oldTSstates;// Reapplying TS1 and TS2 previous states
+        //data |= oldTSstates;// Reapplying TS1 and TS2 previous states
         writeRegister(branchId, device, IO_CONTROL, data);
 
         delayTime(10);
