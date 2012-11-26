@@ -11,7 +11,7 @@
 
 // ÉQUIPE PUISSANCE MODIFIE L'ADDRESSE CAN ICI
 // Valeurs valides entre 1 et 24 seulement!
-#define BMS_CAN_ADDRESS 17
+#define BMS_CAN_ADDRESS 16
 
 #if BMS_CAN_ADDRESS < 1 || BMS_CAN_ADDRESS > 24
 #error Invalid BMS ADDRESS!
