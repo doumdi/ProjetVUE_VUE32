@@ -209,6 +209,68 @@ void ImplBMS(void)
         ErrorStateFlag = FALSE;
     }
 
+    //Emitting periodicaly BMS message
+    EVERY_X_MS(500)
+                LED2 ^= 1;
+                static char rotation = 0;
+                NETV_MESSAGE message;
+                NETV_MESSAGE *msg = &message;
+                msg->msg_comm_iface = NETV_COMM_IFACE_ALL;
+                msg->msg_type = VUE32_TYPE_GETVALUE;
+                msg->msg_source = 0x00;
+                msg->msg_priority = NETV_PRIORITY_MEDIUM;
+                unsigned char _temp;
+                switch(rotation)
+                {
+                    case 0:
+                        msg->msg_cmd = E_ID_BMS_CELL_GROUP1;
+                        ANSWER4(E_ID_BMS_CELL_GROUP1, short, CG_ID_BMS_CELLGROUP_VOLT1_TEMP,
+                                short, (short)branch0.deviceTable[0].cellTable[0].tension.value,
+                                short, (short)branch0.deviceTable[0].cellTable[1].tension.value,
+                                short, (short)branch0.deviceTable[0].temperature1.value)
+                                break;
+                    case 1:
+                        msg->msg_cmd = E_ID_BMS_CELL_GROUP1;
+                ANSWER3(E_ID_BMS_CELL_GROUP1, short, CG_ID_BMS_CELLGROUP_VOLT2,
+                        short, (short)branch0.deviceTable[0].cellTable[2].tension.value,
+                        short, (short)branch0.deviceTable[0].cellTable[3].tension.value)
+                        break;
+                    case 2:
+                        msg->msg_cmd = E_ID_BMS_CELL_GROUP2;
+                ANSWER4(E_ID_BMS_CELL_GROUP2, short, CG_ID_BMS_CELLGROUP_VOLT1_TEMP,
+                        short, (short)branch0.deviceTable[1].cellTable[0].tension.value,
+                        short, (short)branch0.deviceTable[1].cellTable[1].tension.value,
+                        short, (short)branch0.deviceTable[1].temperature1.value)
+                        break;
+                    case 3:
+                        msg->msg_cmd = E_ID_BMS_CELL_GROUP2;
+                        ANSWER3(E_ID_BMS_CELL_GROUP2, short, CG_ID_BMS_CELLGROUP_VOLT2,
+                                short, (short)branch0.deviceTable[1].cellTable[2].tension.value,
+                                short, (short)branch0.deviceTable[1].cellTable[3].tension.value)
+                        break;
+                    case 4:
+                        msg->msg_cmd = E_ID_BMS_BOARD_TEMP;
+                        ANSWER1(E_ID_BMS_BOARD_TEMP, short, (short)branch0.temperatureMaxResistance.value)
+                        break;
+                    case 5:
+                        // State of the BMS
+                        msg->msg_cmd = E_ID_BMS_STATE_READONLY;
+                        if (m_state == 3)
+                        {
+                            ANSWER3(E_ID_BMS_STATE_READONLY, short, (short)m_state, short, (short) branch0.deviceTable[0].fMaxTensionForced, unsigned short, (unsigned short)branch0.deviceTable[0].nMaxTensionForced )
+                        }
+                        else
+                        {
+                            ANSWER1(E_ID_BMS_STATE_READONLY, short, (short)m_state)
+                        }
+                        break;
+                }
+
+                rotation += 1;
+                if (rotation > 5)
+                    rotation = 0;
+    END_OF_EVERY
+
     bufferMoy++;
 }
 
