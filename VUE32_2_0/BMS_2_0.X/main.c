@@ -73,12 +73,15 @@ int main(void)
     ErrorStateFlag = FALSE;
     
     m_state = InitPeripheral;
+    //LED2 ^= 1;
 
     //Most of the functions in the while(1) loop are timed by Timer1
     while (1)
     {
         // Process state machine        
         ImplBMS();
+
+        ClearWDT();
         //CallBMSImpl();        
         
         
@@ -151,8 +154,8 @@ void update_variables(void)
 #pragma config FPBDIV   = DIV_1        // Peripheral Clock divisor
 //#pragma config FROSEL    = FRC
 //#pragma config FRODIV    = 0
-#pragma config FWDTEN   = OFF           // Watchdog Timer
-#pragma config WDTPS    = PS1024           // Watchdog Timer Postscale
+#pragma config FWDTEN   = ON           // Watchdog Timer
+#pragma config WDTPS    = PS2048       // Watchdog Timer Postscale = 2s
 #pragma config FCKSM    = CSECMD        // Clock Switching & Fail Safe Clock Monitor
 #pragma config OSCIOFNC = OFF           // CLKO Enable
 #pragma config POSCMOD  = HS            // Primary Oscillator

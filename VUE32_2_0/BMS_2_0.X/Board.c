@@ -50,7 +50,7 @@ void InitBoard(void)
     // Initialize CAN bus
     CRX1_TRIS = 1;
     CTX1_TRIS = 0;
-    netv_init_can_driver(GetBoardID(),CAN1);    
+    netv_init_can_driver(GetMyAddr(),CAN1);
 
     // Initialize Relays (low)
     RELAY1_TRIS = 0;
