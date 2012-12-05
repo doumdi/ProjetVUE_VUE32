@@ -50,7 +50,6 @@ int verifyTensionMax();
 int verifyTemperatureRes();
 int waitStabiliseTemp();
 void InitializeSPI();
-void netv_init_can_driver(unsigned char canAddr, CAN_MODULE CANx);
 unsigned char getAddress();
 unsigned char getBranchAddress();
 
@@ -452,6 +451,9 @@ void monitor(void) {
 
 void balance(void) {
     status(&branch0); // Mise à jour des status
+
+    stopAllFETs(&branch0);
+    BLOCK_X_MS(10);
 
     if(isCellBleeding(&branch0) == 0)
     {

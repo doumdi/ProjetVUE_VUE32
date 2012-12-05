@@ -319,6 +319,29 @@ unsigned char triggerFET(byte branchId, Device *device, unsigned int tensionMin)
 }
 
 //------------------------------------------------------------------------------
+unsigned char stopFET(byte branchId, Device *device) {
+    unsigned char cellNb = 0;
+    byte cb_ctrl = 0;
+	unsigned char balActivity = 0;
+
+    //Read the state of the balancing FET
+    readRegister(branchId, device->address, CB_CTRL, 1, &device->fetStatus);
+
+    for (cellNb = 0; cellNb < NB_CELL_BY_DEVICE; cellNb++) {
+        //If the cell voltage is greater than the maximum tolerated voltage
+            //If the FET is not already activated
+            device->cellTable[cellNb].balanceActive = 0;
+            cb_ctrl = cb_ctrl & ~(0x01 << cellNb);
+
+    }
+
+    device->fetStatus = cb_ctrl;
+    writeRegister(branchId, device->address, CB_CTRL, device->fetStatus);
+
+    return balActivity;
+}
+
+//------------------------------------------------------------------------------
 
 int coulombBalancingLost(int vcell) {
     return vcell / BALANCING_RESISTOR * BALANCING_TIME / 1000;

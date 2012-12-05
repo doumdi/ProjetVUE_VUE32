@@ -262,6 +262,22 @@ unsigned char  updateFETs(Branch *branch)
 	return balActivity;
 }
 
+//------------------------------------------------------------------------------
+unsigned char stopAllFETs(Branch *branch)
+{
+	//unsigned char cellNb =0;
+	unsigned char deviceNb = 0;
+	//unsigned int tmpCellBalancing = 0;
+	unsigned int balActivity = 0;
+
+	for(deviceNb=0; deviceNb < nbDevice; deviceNb++)
+	{
+		balActivity = stopFET(branch->id, &branch->deviceTable[deviceNb]);
+	}
+
+	return balActivity;
+}
+
 unsigned int isCellBleeding(Branch *branch)
 {
     unsigned char deviceNb = 0;

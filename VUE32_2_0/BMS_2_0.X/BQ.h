@@ -56,6 +56,8 @@ void getGPAI(byte branchId,Device *device);
 void configTimer(byte branchId, byte device);
 //Met à jour les fet de chaque cellule selon leur tension
 unsigned char  triggerFET(byte branchId, Device *device, unsigned int tensionMin);
+// Arret du balancement
+unsigned char stopFET(byte branchId, Device *device);
 //Met à jour les données concernant les fets pour savoir s'il bleed
 void updateFetStatus(byte branchId, Device *device);
 

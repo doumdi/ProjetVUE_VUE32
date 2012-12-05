@@ -48,26 +48,6 @@ void ImplBMS();
 int main(void)
 {
     InitBoard();
-/*
-    SYSTEMConfigPerformance(GetSystemClock());
-    SYSTEMConfig(GetSystemClock(), SYS_CFG_PCACHE);
-    SYSTEMConfig(GetSystemClock(), SYS_CFG_PB_BUS);
-    unsigned int perifClock = SYSTEMConfigPB(GetSystemClock());
-    INTEnableSystemMultiVectoredInt();
-        // Initialize LEDs
-    LED1_TRIS = 0;
-    LED2_TRIS = 0;
-    // Initialize CAN bus
-    CRX1_TRIS = 1;
-    CTX1_TRIS = 0;
-    netv_init_can_driver(GetBoardID(),CAN1);
-    // Initialize Timers
-    initTimerBMS();*/
-    // Get the actual board ID
-    //VUE32_ID id = GetBoardID();
-
-    // Specific VUE32 initialization
-    //InitBMS();
 
     //Set ErrorStateFlag
     ErrorStateFlag = FALSE;

@@ -100,6 +100,8 @@ void changeBranchConversionTime(Branch *branch, byte value);
 void updateCellVoltage(Branch *branch, int bufferNB);
 //Mise à jour des fet de chacune des cellules
 unsigned char  updateFETs(Branch *branch);
+// Arrêt complet du balancement
+unsigned char stopAllFETs(Branch *branch);
 
 unsigned int isCellBleeding(Branch *branch);
 
